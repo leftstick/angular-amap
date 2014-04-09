@@ -1,0 +1,26 @@
+{
+  "name": "angular-amap",
+  "version": "1.0.0",
+  "description": "A a-map directive for AngularJS",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/leftstick/angular-amap.git"
+  },
+  "keywords": [
+    "a-map",
+    "angularjs"
+  ],
+  "author": "Howard.Zuo",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/leftstick/angular-amap/issues"
+  },
+  "homepage": "https://github.com/leftstick/angular-amap",
+  "devDependencies": {
+    "gulp": "~3.6.0",
+    "gulp-uglify": "~0.2.1",
+    "gulp-jshint": "~1.5.3",
+    "gulp-connect": "~2.0.4",
+    "gulp-rename": "~1.2.0"
+  }
+}
