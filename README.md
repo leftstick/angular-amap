@@ -4,7 +4,7 @@
 
 ## Getting started
 
-v1.0.1
+v1.0.2
 
 This is a directive for AngularJS `~1.2.0+`. And ease the way to display a a-map on your page.
 

@@ -3,7 +3,7 @@
 
 ### Download the source code or install the git package by using [bower](http://bower.io/)
 
-v1.0.1 released
+v1.0.2 released
 
 ```shell
 bower install angular-amap -S

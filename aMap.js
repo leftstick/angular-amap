@@ -29,7 +29,7 @@
  *
  *  @author      Howard.Zuo
  *  @copyright   April 9, 2014
- *  @version     1.0.1
+ *  @version     1.0.2
  *
  */
 (function(angular) {
@@ -169,6 +169,12 @@
                     }
                     AMap.event.addListener(marker2, "click", openInfoWindow(map, marker2, infoWindow2));
                 }
+
+                $scope.$on('$destroy', function() {
+                    if (map && map.destroy) {
+                        map.destroy();
+                    }
+                });
 
 
             },
