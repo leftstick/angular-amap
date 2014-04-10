@@ -17,8 +17,10 @@
  *            .overviewCtrl[Boolean]{O}: Whether to add a OverviewMapControl to the map
  *            .enableScrollWheelZoom[Boolean]{O}: Whether to enableScrollWheelZoom to the map
  *            .markers[Array]{O}:       An array of marker which will be added on the map
- *                   .longitude{M}:                The longitude of the marker
- *                   .latitude{M}:                 The latitude of the marker
+ *                   .longitude[Number]{M}:        The longitude of the marker
+ *                   .latitude[Number]{M}:         The latitude of the marker
+ *                   .width[Number]{O}:            The width of the the infowindow while clicking the markder
+ *                   .height[Number]{O}:           The height of the the infowindow while clicking the markder
  *                   .icon[String]{O}:             The icon's url for the marker
  *                   .title[String]{O}:            The title on the infowindow displayed once you click the marker
  *                   .content[String]{O}:          The content on the infowindow displayed once you click the marker
@@ -27,7 +29,7 @@
  *
  *  @author      Howard.Zuo
  *  @copyright   April 9, 2014
- *  @version     1.0.0
+ *  @version     1.0.1
  *
  */
 (function(angular) {
@@ -162,6 +164,9 @@
                         autoMove: true,
                         content: "<p>" + (marker.title ? marker.title : '') + "</p><p>" + (marker.content ? marker.content : '') + "</p>"
                     });
+                    if (marker.width && marker.height) {
+                        infoWindow2.setSize(new AMap.Size(marker.width, marker.height));
+                    }
                     AMap.event.addListener(marker2, "click", openInfoWindow(map, marker2, infoWindow2));
                 }
 
