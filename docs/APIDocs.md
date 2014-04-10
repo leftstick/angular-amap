@@ -73,8 +73,8 @@ app.controller('demoCtrl', ['$scope',
 | options.markers | array | no | The markers you'd like to have on the displayed map | [{longitude: longitude,latitude: latitude,icon: 'img/mappiont.png',width: 49,height: 60,title: 'Where',content: 'Put description here'}] |
 | marker.longitude | number | Yes | The longitude of the the markder | 121.506191 |
 | marker.latitude | number | Yes | The latitude of the the markder | 31.245554 |
-| marker.width | number | No | The width of the the infowindow while clicking the markder | 300 |
-| marker.height | number | No | The height of the the infowindow while clicking the markder | 300 |
+| marker.width | number | No | The width of the the infowindow which displayed while clicking the markder | 300 |
+| marker.height | number | No | The height of the the infowindow which displayed while clicking the markder | 300 |
 | marker.icon | string | No | The icon's url for the marker. The default icon will be set if you haven't set this value. | 'img/mappiont.png' |
 | marker.title | string | No | The title on the infowindow displayed once you click the marker. | 'hello' |
 | marker.content | string | No | The content on the infowindow displayed once you click the marker. | 'hello world' |

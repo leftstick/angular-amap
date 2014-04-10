@@ -19,8 +19,8 @@
  *            .markers[Array]{O}:       An array of marker which will be added on the map
  *                   .longitude[Number]{M}:        The longitude of the marker
  *                   .latitude[Number]{M}:         The latitude of the marker
- *                   .width[Number]{O}:            The width of the the infowindow while clicking the markder
- *                   .height[Number]{O}:           The height of the the infowindow while clicking the markder
+ *                   .width[Number]{O}:            The width of the the infowindow which displayed while clicking the markder
+ *                   .height[Number]{O}:           The height of the the infowindow which displayed while clicking the markder
  *                   .icon[String]{O}:             The icon's url for the marker
  *                   .title[String]{O}:            The title on the infowindow displayed once you click the marker
  *                   .content[String]{O}:          The content on the infowindow displayed once you click the marker
