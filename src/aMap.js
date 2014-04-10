@@ -22,7 +22,6 @@
  *                   .icon[String]{O}:             The icon's url for the marker
  *                   .title[String]{O}:            The title on the infowindow displayed once you click the marker
  *                   .content[String]{O}:          The content on the infowindow displayed once you click the marker
- *                   .enableMessage[Boolean]{O}:   Whether to enable the SMS feature for this marker window. This option only available when title/content are defined.
  *
  *
  *
