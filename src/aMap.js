@@ -7,8 +7,6 @@
  *      <a-map options="options"></a-map>
  *
  *      options: The configurations for the map
- *            .width[Number]{M}:        The width of the map
- *            .height[Number]{M}:       The height of the map
  *            .center.longitude[Number]{M}: The longitude of the center point
  *            .center.latitude[Number]{M}: The latitude of the center point
  *            .zoom[Number]{O}:         Map's zoom level. This must be a number between 3 and 19
@@ -29,11 +27,11 @@
  *
  *  @author      Howard.Zuo
  *  @copyright   April 9, 2014
- *  @version     1.0.2
+ *  @version     1.1.0
  *
  */
-(function(angular) {
-    "use strict";
+(function (angular) {
+    'use strict';
 
     var defaults = {
         navCtrl: true,
@@ -43,11 +41,11 @@
         zoom: 10
     };
 
-    var checkNull = function(obj) {
+    var checkNull = function (obj) {
         return obj === null || obj === undefined;
     };
 
-    var checkMandatory = function(prop, desc) {
+    var checkMandatory = function (prop, desc) {
         if (!prop) {
             throw new Error(desc);
         }
@@ -58,7 +56,7 @@
      *
      * @constructor
      */
-    var aMapDir = function() {
+    var aMapDir = function () {
 
         // Return configured, directive instance
 
@@ -67,7 +65,7 @@
             scope: {
                 'options': '='
             },
-            link: function($scope, element, attrs) {
+            link: function ($scope, element, attrs) {
 
                 var ops = {};
                 ops.navCtrl = checkNull($scope.options.navCtrl) ? defaults.navCtrl : $scope.options.navCtrl;
@@ -76,23 +74,16 @@
                 ops.enableScrollWheelZoom = checkNull($scope.options.enableScrollWheelZoom) ? defaults.enableScrollWheelZoom : $scope.options.enableScrollWheelZoom;
                 ops.zoom = checkNull($scope.options.zoom) ? defaults.zoom : $scope.options.zoom;
 
-                checkMandatory($scope.options.width, 'options.width must be set');
-                checkMandatory($scope.options.height, 'options.height must be set');
                 checkMandatory($scope.options.center, 'options.center must be set');
                 checkMandatory($scope.options.center.longitude, 'options.center.longitude must be set');
                 checkMandatory($scope.options.center.latitude, 'options.center.latitude must be set');
 
-                ops.width = $scope.options.width;
-                ops.height = $scope.options.height;
                 ops.center = {
                     longitude: $scope.options.center.longitude,
                     latitude: $scope.options.center.latitude
                 };
                 ops.city = $scope.options.city;
                 ops.markers = $scope.options.markers;
-
-                element.find('div').css('width', ops.width + 'px');
-                element.find('div').css('height', ops.height + 'px');
 
                 // create map instance
                 var mapOps = {
@@ -105,21 +96,21 @@
 
                 if (ops.navCtrl) {
                     // add navigation control
-                    map.plugin(["AMap.ToolBar"], function() {
+                    map.plugin(["AMap.ToolBar"], function () {
                         var toolBar = new AMap.ToolBar();
                         map.addControl(toolBar);
                     });
                 }
                 if (ops.scaleCtrl) {
                     // add scale control
-                    map.plugin(["AMap.Scale"], function() {
+                    map.plugin(["AMap.Scale"], function () {
                         var scale = new AMap.Scale();
                         map.addControl(scale);
                     });
                 }
                 if (ops.overviewCtrl) {
                     //add overview map control
-                    map.plugin(["AMap.OverView"], function() {
+                    map.plugin(["AMap.OverView"], function () {
                         var overView = new AMap.OverView({
                             visible: false
                         });
@@ -132,8 +123,8 @@
                 }
                 //create markers
 
-                var openInfoWindow = function(map, marker, infoWin) {
-                    return function(e) {
+                var openInfoWindow = function (map, marker, infoWin) {
+                    return function (e) {
                         infoWin.open(map, marker.getPosition());
                     };
                 };
@@ -146,8 +137,7 @@
                             icon: marker.icon,
                             position: pt
                         });
-                    }
-                    else {
+                    } else {
                         marker2 = new AMap.Marker({
                             position: pt
                         });
@@ -170,7 +160,7 @@
                     AMap.event.addListener(marker2, "click", openInfoWindow(map, marker2, infoWindow2));
                 }
 
-                $scope.$on('$destroy', function() {
+                $scope.$on('$destroy', function () {
                     if (map && map.destroy) {
                         map.destroy();
                     }
@@ -178,7 +168,7 @@
 
 
             },
-            template: '<div></div>'
+            template: '<div style="width: 100%; height: 100%;"></div>'
         };
     };
 

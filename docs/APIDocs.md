@@ -3,7 +3,7 @@
 
 ### Download the source code or install the git package by using [bower](http://bower.io/)
 
-v1.0.2 released
+v1.1.0 released
 
 ```shell
 bower install angular-amap -S
@@ -26,7 +26,7 @@ var app = angular.module('app', ["aMap"]);
 ### Use `aMap` directive in the html
 
 ```html
-<a-map options="mapOptions"></a-map>
+<a-map options="mapOptions" style="display: block; width: 500px; height: 400px;"></a-map>
 ```
 > `mapOptions` is what you defined in the controller.
 
@@ -43,8 +43,6 @@ app.controller('demoCtrl', ['$scope',
                 latitude: latitude
             },
             zoom: 17,
-            width: 500,
-            height: 400,
             markers: [{
                 longitude: longitude,
                 latitude: latitude,
@@ -64,8 +62,6 @@ app.controller('demoCtrl', ['$scope',
 | options.center.longitude | number | Yes | The longitude of the center point | 121.506191 |
 | options.center.latitude | number | Yes | The latitude of the center point | 31.245554 |
 | options.zoom | number | Yes | Map's zoom level. This must be a number between 3 and 19 | 9 |
-| options.width | number | Yes | The width of the map | 600 |
-| options.height | number | Yes | The height of the map | 600 |
 | options.navCtrl | boolean | No | Whether to add a NavigationControl to the map, default to true | false |
 | options.scaleCtrl | boolean | No | Whether to add a ScaleControl to the map, default to true | false |
 | options.overviewCtrl | boolean | No | Whether to add a OverviewMapControl to the map, default to true | false |
