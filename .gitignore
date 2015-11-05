@@ -1,4 +1,4 @@
-bower_components/
+bower/
 node_modules/
 demo/libs/angular.js
 demo/libs/aMap.js

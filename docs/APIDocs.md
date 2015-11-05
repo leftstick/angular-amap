@@ -1,32 +1,64 @@
 ## Basic Usage
 
+### Import `amap` SDK ###
 
-### Download the source code or install the git package by using [bower](http://bower.io/)
-
-v1.1.0 released
-
-```shell
-bower install angular-amap -S
-```
-> `-S` means update the `bower.json` with `angular-amap` involved while installing.
-
-### Add `script` tag to the `index.html` for retrieving a-map API
-
-``` html
-<script language="javascript" src="https://webapi.amap.com/maps?v=1.2&key={key}"></script>
-```
-> The `key` should be applied on [Apply ak](http://api.amap.com/key/).
-
-### Include `aMap.js` file in your page. Then add the `aMap` module to your Angular App file, e.g.
-
-```JavaScript
-var app = angular.module('app', ["aMap"]);
-```
-
-### Use `aMap` directive in the html
+Put below snippet into your `html`:
 
 ```html
-<a-map options="mapOptions" style="display: block; width: 500px; height: 400px;"></a-map>
+<script type="text/javascript" src="http://webapi.amap.com/maps?v=1.3&key=您申请的key值"></script>
+```
+> The `您申请的key值` should be applied on [Apply ak](http://lbs.amap.com/console/key).
+
+
+### Import `angular-amap` ###
+
+#### CommonJS ####
+
+```JavaScript
+var angular = require('angular');
+var amap = require('angular-amap');
+
+var app = angular.module('app', ['angular-amap']);
+```
+
+#### RequireJS ####
+
+```JavaScript
+require.config({
+    paths: {
+        'angular': 'bower_components/angular/angular.min',
+        'angular-amap': 'bower_components/angular-amap/angular-amap.min'
+    },
+    shim: {
+        'angular': {
+            exports: 'angular'
+        },
+        'angular-amap': {
+            deps: ['angular']
+        }
+    }
+});
+
+define(['angular', 'angular-amap'], function(angular){
+    var app = angular.module('app', ['angular-amap']);
+});
+```
+
+#### Plain JavaScript ####
+
+```html
+<script type="text/javascript" src="bower_components/angular/angular.min.js"></script>
+<script type="text/javascript" src="bower_components/angular-amap/angular-amap.min.js"></script>
+
+<script type="text/javascript">
+    var app = angular.module('app', ['angular-amap']);
+</script>
+```
+
+### Use `ng-amap` directive ###
+
+```html
+<ng-amap options="mapOptions" style="display: block; width: 500px; height: 400px;"></a-map>
 ```
 > `mapOptions` is what you defined in the controller.
 

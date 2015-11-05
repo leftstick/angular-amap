@@ -1,44 +1,37 @@
+'use strict';
+
 var gulp = require('gulp');
-var connect = require('gulp-connect');
 var uglify = require('gulp-uglify');
-var jshint = require('gulp-jshint');
 var rename = require('gulp-rename');
 
 
-gulp.task('lint', function() {
-    return gulp.src('./src/aMap.js')
-        .pipe(jshint())
-        .pipe(jshint.reporter('default'));
-});
-
-gulp.task('compress', ['lint'], function() {
-    return gulp.src('./src/aMap.js')
+gulp.task('compress', function() {
+    return gulp.src('./src/angular-amap.js')
         .pipe(uglify())
-        .pipe(rename({
-            extname: '.min.js'
-        }))
+        .pipe(rename({extname: '.min.js'}))
         .pipe(gulp.dest('./'));
 });
 
-gulp.task('copyDist', ['lint'], function() {
-    return gulp.src('./src/aMap.js')
+gulp.task('copyDist', function() {
+    return gulp.src('./src/angular-amap.js')
         .pipe(gulp.dest('./'));
 });
 
 gulp.task('copyDemo', function() {
-    return gulp.src(['./bower_components/angular/angular.js', './src/aMap.js'])
+    return gulp.src(['./src/angular-amap.js'])
         .pipe(gulp.dest('./demo/libs/'));
 });
 
-gulp.task('demo', ['copyDemo'], function() {
-    var conn = connect.server({
-        root: ['demo/'],
-        port: 9898,
-        livereload: true
-    });
+gulp.task('dev', ['copyDemo'], function() {
+    var webserver = require('gulp-webserver');
+    gulp.src('demo/').pipe(webserver({
+        host: '0.0.0.0',
+        port: 8080,
+        livereload: true,
+        directoryListing: false,
+        fallback: 'index.html'
+    }));
 });
 
 
-gulp.task('default', ['compress', 'copyDist'], function() {
-
-});
+gulp.task('dist', ['compress', 'copyDist'], function() {});
