@@ -1,30 +1,29 @@
+import '../css/main.css';
 import angular from 'angular';
-import {ngAmap} from '../../dist/angular-amap';
+import {ngAmap} from '../../src/index';
 
 import mapPointUrl from '../img/mappoint.png';
 
 var demo = angular.module('demo', [ngAmap]);
 
+var center1 = {longitude: 121.497775, latitude: 31.237427};
+var center2 = {longitude: 121.4798993608, latitude: 31.2250525548};
+
 demo.controller('demoCtrl', [
     '$scope',
     '$timeout',
     function($scope, $timeout) {
-        var longitude = 121.497775;
-        var latitude = 31.237427;
         $scope.mapOptions = {
             toolBar: true,
             scaleCtrl: true,
             overviewCtrl: true,
             enableScrollWheelZoom: true,
-            center: {
-                longitude: longitude,
-                latitude: latitude
-            },
+            center: center1,
             zoom: 17,
             markers: [
                 {
-                    longitude: longitude,
-                    latitude: latitude,
+                    longitude: center1.longitude,
+                    latitude: center1.latitude,
                     icon: mapPointUrl,
                     title: 'Where',
                     content: 'Put description here'
@@ -38,13 +37,22 @@ demo.controller('demoCtrl', [
             console.log('loaded amap ', map);
         };
 
-        $timeout(function() {
-            $scope.mapOptions.center = {
-                longitude: 121.4798993608,
-                latitude: 31.2250525548
-            };
-            $scope.mapOptions.markers[0].longitude = 121.4798993608;
-            $scope.mapOptions.markers[0].latitude = 31.2250525548;
-        }, 3000);
+        $scope.toggleCoordinate = function() {
+            $scope.mapOptions.center = $scope.mapOptions.center === center1 ? center2 : center1;
+        };
+
+        $scope.toggleMarker = function() {
+            if ($scope.mapOptions.markers[0].longitude === center1.longitude) {
+                $scope.mapOptions.markers[0].longitude = center2.longitude;
+                $scope.mapOptions.markers[0].latitude = center2.latitude;
+                return;
+            }
+            $scope.mapOptions.markers[0].longitude = center1.longitude;
+            $scope.mapOptions.markers[0].latitude = center1.latitude;
+        };
+
+        $scope.randomScale = function() {
+            $scope.mapOptions.zoom = Math.floor(Math.random() * 15) + 3;
+        };
     }
 ]);

@@ -52,6 +52,10 @@ export const ngAmap = (function() {
                     redrawMarkers(map, previousMarkers, opts);
                 }, true);
 
+                $scope.$watch('options.zoom', function(newValue, oldValue) {
+                    map.setZoom(newValue);
+                }, true);
+
             });
 
             $scope.divStyle = divStyle;

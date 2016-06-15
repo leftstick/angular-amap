@@ -29,7 +29,7 @@ module.exports = {
         new HtmlWebpackPlugin({
             filename: 'index.html',
             inject: 'body',
-            template: 'example/index.html_vm',
+            template: 'html!example/index.html_vm',
             favicon: 'example/img/favicon.ico',
             hash: false
         })

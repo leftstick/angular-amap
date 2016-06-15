@@ -3,10 +3,39 @@
 
 <head>
     <meta charset="UTF-8">
-    <title>Demo</title>
+    <title>高德地图指令</title>
 </head>
 
 <body ng-controller="demoCtrl">
-    <ng-amap id="amap" options="mapOptions" offline="offline" on-map-loaded="loadMap(map)" ak="53deb06fba327390438a6dae38686827" style="display: block; width: 500px; height: 400px;"></a-map>
+    <div id="logo-wrap">
+          <img id="logo" src="./img/AngularJS-large.png">
+          <h1>angular-amap</h1>
+    </div>
+
+    <p id="desc">
+        A damn easy directive for 高德地图, and it's totally re-write in `ES2015`, including API updates and offline friendly<br/><br/>
+        Very welcome to give me feedbacks! <br/><br/>
+        Stars would be the best^^!!
+    </p>
+
+    <div id="github">
+        <iframe src="http://ghbtns.com/github-btn.html?user=leftstick&repo=angular-amap&type=star&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
+        <iframe src="http://ghbtns.com/github-btn.html?user=leftstick&repo=angular-amap&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
+    </div>
+
+    <div id="todo-app">
+        <ng-amap id="amap" options="mapOptions" offline="offline" on-map-loaded="loadMap(map)" ak="53deb06fba327390438a6dae38686827" style="display: block; width: 500px; height: 400px;"></ng-amap>
+
+        <div class="controls">
+            <button ng-click="toggleCoordinate()">Coordinate</button>
+            <button ng-click="toggleMarker()">Marker</button>
+            <button ng-click="randomScale()">Scale</button>
+        </div>
+    </div>
+
+    <div id="footer">
+        <p>Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
+        <p>Copyright (c) 2016 <a href="https://github.com/leftstick" target="_blank">Howard.Zuo</a></p>
+    </div>
 </body>
 </html>

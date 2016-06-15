@@ -1,0 +1,95 @@
+/* body */
+*{
+    box-sizing: border-box;
+}
+
+html, body{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+    text-align: center;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    color: #34495e;
+    margin: 0;
+    border-top: 2px solid #b82934;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+}
+
+a[disabled]{
+    pointer-events: none;
+    color: #7f8c8d;
+}
+
+a{
+    text-decoration: none;
+    color: #2E64FE;
+}
+
+/* logo */
+#logo-wrap {
+    margin: 55px 0 20px 0;
+}
+
+#logo-wrap img{
+    margin-bottom: 15px;
+}
+
+#logo-wrap h1 {
+    font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 27px;
+}
+
+#desc {
+    max-width: 800px;
+    padding: 0 20px;
+    text-align: center;
+    margin: 10px auto;
+    color: #7f8c8d;
+}
+
+#github{
+    margin: 30px 0 30px 0;
+}
+
+#todo-app{
+    width: 800px;
+    height: 500px;
+    margin: auto;
+}
+
+#todo-app .controls{
+    margin-top: 15px;
+}
+
+ng-amap{
+    margin: auto;
+}
+
+button{
+    display: inline-block;
+    width: 100px;
+    margin: 0.5em;
+    font-weight: bold;
+    color: #fff;
+    background-color: #e64e47;
+    border-bottom: 2px solid #3aa373;
+    padding: 12px 14px;
+    border-radius: 4px;
+    transition: all 0.15s ease;
+    outline: none;
+}
+
+/* footer */
+#footer{
+    margin-top: 20px;
+    text-align: center;
+    padding: 20px 0;
+    background-color: #D8D8D8;
+}
