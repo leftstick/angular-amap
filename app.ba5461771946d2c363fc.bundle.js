@@ -46,36 +46,36 @@
 
 	'use strict';
 
-	var _angular = __webpack_require__(1);
+	__webpack_require__(1);
+
+	var _angular = __webpack_require__(5);
 
 	var _angular2 = _interopRequireDefault(_angular);
 
-	var _angularAmap = __webpack_require__(3);
+	var _index = __webpack_require__(7);
 
-	var _mappoint = __webpack_require__(5);
+	var _mappoint = __webpack_require__(14);
 
 	var _mappoint2 = _interopRequireDefault(_mappoint);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-	var demo = _angular2.default.module('demo', [_angularAmap.ngAmap]);
+	var demo = _angular2.default.module('demo', [_index.ngAmap]);
+
+	var center1 = { longitude: 121.497775, latitude: 31.237427 };
+	var center2 = { longitude: 121.4798993608, latitude: 31.2250525548 };
 
 	demo.controller('demoCtrl', ['$scope', '$timeout', function ($scope, $timeout) {
-	    var longitude = 121.497775;
-	    var latitude = 31.237427;
 	    $scope.mapOptions = {
 	        toolBar: true,
 	        scaleCtrl: true,
 	        overviewCtrl: true,
 	        enableScrollWheelZoom: true,
-	        center: {
-	            longitude: longitude,
-	            latitude: latitude
-	        },
+	        center: center1,
 	        zoom: 17,
 	        markers: [{
-	            longitude: longitude,
-	            latitude: latitude,
+	            longitude: center1.longitude,
+	            latitude: center1.latitude,
 	            icon: _mappoint2.default,
 	            title: 'Where',
 	            content: 'Put description here'
@@ -88,26 +88,383 @@
 	        console.log('loaded amap ', map);
 	    };
 
-	    $timeout(function () {
-	        $scope.mapOptions.center = {
-	            longitude: 121.4798993608,
-	            latitude: 31.2250525548
-	        };
-	        $scope.mapOptions.markers[0].longitude = 121.4798993608;
-	        $scope.mapOptions.markers[0].latitude = 31.2250525548;
-	    }, 3000);
+	    $scope.toggleCoordinate = function () {
+	        $scope.mapOptions.center = $scope.mapOptions.center === center1 ? center2 : center1;
+	    };
+
+	    $scope.toggleMarker = function () {
+	        if ($scope.mapOptions.markers[0].longitude === center1.longitude) {
+	            $scope.mapOptions.markers[0].longitude = center2.longitude;
+	            $scope.mapOptions.markers[0].latitude = center2.latitude;
+	            return;
+	        }
+	        $scope.mapOptions.markers[0].longitude = center1.longitude;
+	        $scope.mapOptions.markers[0].latitude = center1.latitude;
+	    };
+
+	    $scope.randomScale = function () {
+	        $scope.mapOptions.zoom = Math.floor(Math.random() * 15) + 3;
+	    };
 	}]);
 
 /***/ },
 /* 1 */
 /***/ function(module, exports, __webpack_require__) {
 
-	__webpack_require__(2);
+	// style-loader: Adds some css to the DOM by adding a <style> tag
+
+	// load the styles
+	var content = __webpack_require__(2);
+	if(typeof content === 'string') content = [[module.id, content, '']];
+	// add the styles to the DOM
+	var update = __webpack_require__(4)(content, {});
+	if(content.locals) module.exports = content.locals;
+	// Hot Module Replacement
+	if(false) {
+		// When the styles change, update the <style> tags
+		if(!content.locals) {
+			module.hot.accept("!!./../../node_modules/css-loader/index.js!./main.css", function() {
+				var newContent = require("!!./../../node_modules/css-loader/index.js!./main.css");
+				if(typeof newContent === 'string') newContent = [[module.id, newContent, '']];
+				update(newContent);
+			});
+		}
+		// When the module is disposed, remove the <style> tags
+		module.hot.dispose(function() { update(); });
+	}
+
+/***/ },
+/* 2 */
+/***/ function(module, exports, __webpack_require__) {
+
+	exports = module.exports = __webpack_require__(3)();
+	// imports
+
+
+	// module
+	exports.push([module.id, "/* body */\n*{\n    box-sizing: border-box;\n}\n\nhtml, body{\n    margin: 0;\n    padding: 0;\n}\n\nbody{\n    font-family: 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;\n    text-align: center;\n    -webkit-font-smoothing: antialiased;\n    -moz-osx-font-smoothing: grayscale;\n    color: #34495e;\n    margin: 0;\n    border-top: 2px solid #b82934;\n    -webkit-box-sizing: border-box;\n    -moz-box-sizing: border-box;\n    box-sizing: border-box;\n}\n\na[disabled]{\n    pointer-events: none;\n    color: #7f8c8d;\n}\n\na{\n    text-decoration: none;\n    color: #2E64FE;\n}\n\n/* logo */\n#logo-wrap {\n    margin: 55px 0 20px 0;\n}\n\n#logo-wrap img{\n    margin-bottom: 15px;\n}\n\n#logo-wrap h1 {\n    font-family: 'Dosis', 'Source Sans Pro', 'Helvetica Neue', Arial, sans-serif;\n    font-weight: 400;\n    font-size: 27px;\n}\n\n#desc {\n    max-width: 800px;\n    padding: 0 20px;\n    text-align: center;\n    margin: 10px auto;\n    color: #7f8c8d;\n}\n\n#github{\n    margin: 30px 0 30px 0;\n}\n\n#todo-app{\n    width: 800px;\n    height: 500px;\n    margin: auto;\n}\n\n#todo-app .controls{\n    margin-top: 15px;\n}\n\nng-amap{\n    margin: auto;\n}\n\nbutton{\n    display: inline-block;\n    width: 100px;\n    margin: 0.5em;\n    font-weight: bold;\n    color: #fff;\n    background-color: #e64e47;\n    border-bottom: 2px solid #3aa373;\n    padding: 12px 14px;\n    border-radius: 4px;\n    transition: all 0.15s ease;\n    outline: none;\n}\n\n/* footer */\n#footer{\n    margin-top: 20px;\n    text-align: center;\n    padding: 20px 0;\n    background-color: #D8D8D8;\n}\n", ""]);
+
+	// exports
+
+
+/***/ },
+/* 3 */
+/***/ function(module, exports) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	// css base code, injected by the css-loader
+	module.exports = function() {
+		var list = [];
+
+		// return the list of modules as css string
+		list.toString = function toString() {
+			var result = [];
+			for(var i = 0; i < this.length; i++) {
+				var item = this[i];
+				if(item[2]) {
+					result.push("@media " + item[2] + "{" + item[1] + "}");
+				} else {
+					result.push(item[1]);
+				}
+			}
+			return result.join("");
+		};
+
+		// import a list of modules into the list
+		list.i = function(modules, mediaQuery) {
+			if(typeof modules === "string")
+				modules = [[null, modules, ""]];
+			var alreadyImportedModules = {};
+			for(var i = 0; i < this.length; i++) {
+				var id = this[i][0];
+				if(typeof id === "number")
+					alreadyImportedModules[id] = true;
+			}
+			for(i = 0; i < modules.length; i++) {
+				var item = modules[i];
+				// skip already imported module
+				// this implementation is not 100% perfect for weird media query combinations
+				//  when a module is imported multiple times with different media queries.
+				//  I hope this will never occur (Hey this way we have smaller bundles)
+				if(typeof item[0] !== "number" || !alreadyImportedModules[item[0]]) {
+					if(mediaQuery && !item[2]) {
+						item[2] = mediaQuery;
+					} else if(mediaQuery) {
+						item[2] = "(" + item[2] + ") and (" + mediaQuery + ")";
+					}
+					list.push(item);
+				}
+			}
+		};
+		return list;
+	};
+
+
+/***/ },
+/* 4 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/*
+		MIT License http://www.opensource.org/licenses/mit-license.php
+		Author Tobias Koppers @sokra
+	*/
+	var stylesInDom = {},
+		memoize = function(fn) {
+			var memo;
+			return function () {
+				if (typeof memo === "undefined") memo = fn.apply(this, arguments);
+				return memo;
+			};
+		},
+		isOldIE = memoize(function() {
+			return /msie [6-9]\b/.test(window.navigator.userAgent.toLowerCase());
+		}),
+		getHeadElement = memoize(function () {
+			return document.head || document.getElementsByTagName("head")[0];
+		}),
+		singletonElement = null,
+		singletonCounter = 0,
+		styleElementsInsertedAtTop = [];
+
+	module.exports = function(list, options) {
+		if(false) {
+			if(typeof document !== "object") throw new Error("The style-loader cannot be used in a non-browser environment");
+		}
+
+		options = options || {};
+		// Force single-tag solution on IE6-9, which has a hard limit on the # of <style>
+		// tags it will allow on a page
+		if (typeof options.singleton === "undefined") options.singleton = isOldIE();
+
+		// By default, add <style> tags to the bottom of <head>.
+		if (typeof options.insertAt === "undefined") options.insertAt = "bottom";
+
+		var styles = listToStyles(list);
+		addStylesToDom(styles, options);
+
+		return function update(newList) {
+			var mayRemove = [];
+			for(var i = 0; i < styles.length; i++) {
+				var item = styles[i];
+				var domStyle = stylesInDom[item.id];
+				domStyle.refs--;
+				mayRemove.push(domStyle);
+			}
+			if(newList) {
+				var newStyles = listToStyles(newList);
+				addStylesToDom(newStyles, options);
+			}
+			for(var i = 0; i < mayRemove.length; i++) {
+				var domStyle = mayRemove[i];
+				if(domStyle.refs === 0) {
+					for(var j = 0; j < domStyle.parts.length; j++)
+						domStyle.parts[j]();
+					delete stylesInDom[domStyle.id];
+				}
+			}
+		};
+	}
+
+	function addStylesToDom(styles, options) {
+		for(var i = 0; i < styles.length; i++) {
+			var item = styles[i];
+			var domStyle = stylesInDom[item.id];
+			if(domStyle) {
+				domStyle.refs++;
+				for(var j = 0; j < domStyle.parts.length; j++) {
+					domStyle.parts[j](item.parts[j]);
+				}
+				for(; j < item.parts.length; j++) {
+					domStyle.parts.push(addStyle(item.parts[j], options));
+				}
+			} else {
+				var parts = [];
+				for(var j = 0; j < item.parts.length; j++) {
+					parts.push(addStyle(item.parts[j], options));
+				}
+				stylesInDom[item.id] = {id: item.id, refs: 1, parts: parts};
+			}
+		}
+	}
+
+	function listToStyles(list) {
+		var styles = [];
+		var newStyles = {};
+		for(var i = 0; i < list.length; i++) {
+			var item = list[i];
+			var id = item[0];
+			var css = item[1];
+			var media = item[2];
+			var sourceMap = item[3];
+			var part = {css: css, media: media, sourceMap: sourceMap};
+			if(!newStyles[id])
+				styles.push(newStyles[id] = {id: id, parts: [part]});
+			else
+				newStyles[id].parts.push(part);
+		}
+		return styles;
+	}
+
+	function insertStyleElement(options, styleElement) {
+		var head = getHeadElement();
+		var lastStyleElementInsertedAtTop = styleElementsInsertedAtTop[styleElementsInsertedAtTop.length - 1];
+		if (options.insertAt === "top") {
+			if(!lastStyleElementInsertedAtTop) {
+				head.insertBefore(styleElement, head.firstChild);
+			} else if(lastStyleElementInsertedAtTop.nextSibling) {
+				head.insertBefore(styleElement, lastStyleElementInsertedAtTop.nextSibling);
+			} else {
+				head.appendChild(styleElement);
+			}
+			styleElementsInsertedAtTop.push(styleElement);
+		} else if (options.insertAt === "bottom") {
+			head.appendChild(styleElement);
+		} else {
+			throw new Error("Invalid value for parameter 'insertAt'. Must be 'top' or 'bottom'.");
+		}
+	}
+
+	function removeStyleElement(styleElement) {
+		styleElement.parentNode.removeChild(styleElement);
+		var idx = styleElementsInsertedAtTop.indexOf(styleElement);
+		if(idx >= 0) {
+			styleElementsInsertedAtTop.splice(idx, 1);
+		}
+	}
+
+	function createStyleElement(options) {
+		var styleElement = document.createElement("style");
+		styleElement.type = "text/css";
+		insertStyleElement(options, styleElement);
+		return styleElement;
+	}
+
+	function createLinkElement(options) {
+		var linkElement = document.createElement("link");
+		linkElement.rel = "stylesheet";
+		insertStyleElement(options, linkElement);
+		return linkElement;
+	}
+
+	function addStyle(obj, options) {
+		var styleElement, update, remove;
+
+		if (options.singleton) {
+			var styleIndex = singletonCounter++;
+			styleElement = singletonElement || (singletonElement = createStyleElement(options));
+			update = applyToSingletonTag.bind(null, styleElement, styleIndex, false);
+			remove = applyToSingletonTag.bind(null, styleElement, styleIndex, true);
+		} else if(obj.sourceMap &&
+			typeof URL === "function" &&
+			typeof URL.createObjectURL === "function" &&
+			typeof URL.revokeObjectURL === "function" &&
+			typeof Blob === "function" &&
+			typeof btoa === "function") {
+			styleElement = createLinkElement(options);
+			update = updateLink.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+				if(styleElement.href)
+					URL.revokeObjectURL(styleElement.href);
+			};
+		} else {
+			styleElement = createStyleElement(options);
+			update = applyToTag.bind(null, styleElement);
+			remove = function() {
+				removeStyleElement(styleElement);
+			};
+		}
+
+		update(obj);
+
+		return function updateStyle(newObj) {
+			if(newObj) {
+				if(newObj.css === obj.css && newObj.media === obj.media && newObj.sourceMap === obj.sourceMap)
+					return;
+				update(obj = newObj);
+			} else {
+				remove();
+			}
+		};
+	}
+
+	var replaceText = (function () {
+		var textStore = [];
+
+		return function (index, replacement) {
+			textStore[index] = replacement;
+			return textStore.filter(Boolean).join('\n');
+		};
+	})();
+
+	function applyToSingletonTag(styleElement, index, remove, obj) {
+		var css = remove ? "" : obj.css;
+
+		if (styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = replaceText(index, css);
+		} else {
+			var cssNode = document.createTextNode(css);
+			var childNodes = styleElement.childNodes;
+			if (childNodes[index]) styleElement.removeChild(childNodes[index]);
+			if (childNodes.length) {
+				styleElement.insertBefore(cssNode, childNodes[index]);
+			} else {
+				styleElement.appendChild(cssNode);
+			}
+		}
+	}
+
+	function applyToTag(styleElement, obj) {
+		var css = obj.css;
+		var media = obj.media;
+
+		if(media) {
+			styleElement.setAttribute("media", media)
+		}
+
+		if(styleElement.styleSheet) {
+			styleElement.styleSheet.cssText = css;
+		} else {
+			while(styleElement.firstChild) {
+				styleElement.removeChild(styleElement.firstChild);
+			}
+			styleElement.appendChild(document.createTextNode(css));
+		}
+	}
+
+	function updateLink(linkElement, obj) {
+		var css = obj.css;
+		var sourceMap = obj.sourceMap;
+
+		if(sourceMap) {
+			// http://stackoverflow.com/a/26603875
+			css += "\n/*# sourceMappingURL=data:application/json;base64," + btoa(unescape(encodeURIComponent(JSON.stringify(sourceMap)))) + " */";
+		}
+
+		var blob = new Blob([css], { type: "text/css" });
+
+		var oldSrc = linkElement.href;
+
+		linkElement.href = URL.createObjectURL(blob);
+
+		if(oldSrc)
+			URL.revokeObjectURL(oldSrc);
+	}
+
+
+/***/ },
+/* 5 */
+/***/ function(module, exports, __webpack_require__) {
+
+	__webpack_require__(6);
 	module.exports = angular;
 
 
 /***/ },
-/* 2 */
+/* 6 */
 /***/ function(module, exports) {
 
 	/**
@@ -30980,420 +31337,323 @@
 	!window.angular.$$csp().noInlineStyle && window.angular.element(document.head).prepend('<style type="text/css">@charset "UTF-8";[ng\\:cloak],[ng-cloak],[data-ng-cloak],[x-ng-cloak],.ng-cloak,.x-ng-cloak,.ng-hide:not(.ng-hide-animate){display:none !important;}ng\\:form{display:block;}.ng-animate-shim{visibility:hidden;}.ng-anchor{position:absolute;}</style>');
 
 /***/ },
-/* 3 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
-	var __WEBPACK_AMD_DEFINE_FACTORY__, __WEBPACK_AMD_DEFINE_ARRAY__, __WEBPACK_AMD_DEFINE_RESULT__;/* WEBPACK VAR INJECTION */(function(module) {'use strict';
+	'use strict';
 
-	var _typeof = typeof Symbol === "function" && typeof Symbol.iterator === "symbol" ? function (obj) { return typeof obj; } : function (obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol ? "symbol" : typeof obj; };
-
-	(function webpackUniversalModuleDefinition(root, factory) {
-		if (( false ? 'undefined' : _typeof(exports)) === 'object' && ( false ? 'undefined' : _typeof(module)) === 'object') module.exports = factory(__webpack_require__(1));else if (true) !(__WEBPACK_AMD_DEFINE_ARRAY__ = [__webpack_require__(1)], __WEBPACK_AMD_DEFINE_FACTORY__ = (factory), __WEBPACK_AMD_DEFINE_RESULT__ = (typeof __WEBPACK_AMD_DEFINE_FACTORY__ === 'function' ? (__WEBPACK_AMD_DEFINE_FACTORY__.apply(exports, __WEBPACK_AMD_DEFINE_ARRAY__)) : __WEBPACK_AMD_DEFINE_FACTORY__), __WEBPACK_AMD_DEFINE_RESULT__ !== undefined && (module.exports = __WEBPACK_AMD_DEFINE_RESULT__));else {
-			var a = (typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object' ? factory(require("angular")) : factory(root["angular"]);
-			for (var i in a) {
-				((typeof exports === 'undefined' ? 'undefined' : _typeof(exports)) === 'object' ? exports : root)[i] = a[i];
-			}
-		}
-	})(undefined, function (__WEBPACK_EXTERNAL_MODULE_1__) {
-		return (/******/function (modules) {
-				// webpackBootstrap
-				/******/ // The module cache
-				/******/var installedModules = {};
-
-				/******/ // The require function
-				/******/function __webpack_require__(moduleId) {
-
-					/******/ // Check if module is in cache
-					/******/if (installedModules[moduleId])
-						/******/return installedModules[moduleId].exports;
-
-					/******/ // Create a new module (and put it into the cache)
-					/******/var module = installedModules[moduleId] = {
-						/******/exports: {},
-						/******/id: moduleId,
-						/******/loaded: false
-						/******/ };
-
-					/******/ // Execute the module function
-					/******/modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
-					/******/ // Flag the module as loaded
-					/******/module.loaded = true;
-
-					/******/ // Return the exports of the module
-					/******/return module.exports;
-					/******/
-				}
-
-				/******/ // expose the modules object (__webpack_modules__)
-				/******/__webpack_require__.m = modules;
-
-				/******/ // expose the module cache
-				/******/__webpack_require__.c = installedModules;
-
-				/******/ // __webpack_public_path__
-				/******/__webpack_require__.p = "";
-
-				/******/ // Load entry module and return exports
-				/******/return __webpack_require__(0);
-				/******/
-			}(
-			/************************************************************************/
-			/******/[
-			/* 0 */
-			/***/function (module, exports, __webpack_require__) {
-
-				'use strict';
-
-				Object.defineProperty(exports, "__esModule", {
-					value: true
-				});
-				exports.ngAmap = undefined;
-
-				var _angular = __webpack_require__(1);
-
-				var _angular2 = _interopRequireDefault(_angular);
-
-				var _defaults = __webpack_require__(2);
-
-				var _validator = __webpack_require__(3);
-
-				var _directiveDef = __webpack_require__(4);
-
-				var _scriptLoader = __webpack_require__(5);
-
-				var _offline = __webpack_require__(6);
-
-				var _map = __webpack_require__(7);
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { default: obj };
-				}
-
-				var ngAmap = exports.ngAmap = function () {
-					var name = 'angular-amap';
-
-					(0, _directiveDef.def)(name, 'ngAmap', {
-						restrict: 'E',
-						scope: {
-							options: '=',
-							ak: '@',
-							offline: '=',
-							onMapLoaded: '&'
-						},
-						link: function link($scope, element, attrs) {
-
-							var opts = _angular2.default.extend({}, _defaults.defaultOpts, $scope.options);
-							var offlineOpts = _angular2.default.extend({}, _defaults.defaultOfflineOpts, $scope.offline);
-							$scope.offlineWords = offlineOpts.txt;
-							(0, _validator.validator)($scope.ak, 'ak must not be empty');
-							(0, _validator.validator)(opts.center, 'options.center must be set');
-							(0, _validator.validator)(opts.center.longitude, 'options.center.longitude must be set');
-							(0, _validator.validator)(opts.center.latitude, 'options.center.latitude must be set');
-							(0, _validator.validator)(attrs.id, 'id cannot be ignored');
-
-							(0, _scriptLoader.loader)($scope.ak, offlineOpts, function () {
-
-								var map = (0, _map.createInstance)(opts, element[0]);
-
-								$scope.onMapLoaded({ map: map });
-
-								//create markers
-								var previousMarkers = [];
-
-								(0, _map.redrawMarkers)(map, previousMarkers, opts);
-
-								$scope.$watch('options.center', function (newValue, oldValue) {
-
-									opts = $scope.options;
-									map.setZoomAndCenter(opts.zoom, new AMap.LngLat(opts.center.longitude, opts.center.latitude));
-									(0, _map.redrawMarkers)(map, previousMarkers, opts);
-								}, true);
-
-								$scope.$watch('options.markers', function (newValue, oldValue) {
-									(0, _map.redrawMarkers)(map, previousMarkers, opts);
-								}, true);
-							});
-
-							$scope.divStyle = _offline.divStyle;
-							$scope.labelStyle = _offline.labelStyle;
-
-							setTimeout(function () {
-								var $label = document.querySelector('ng-amap div label');
-								$scope.labelStyle.marginTop = $label.clientHeight / -2 + 'px';
-								$scope.labelStyle.marginLeft = $label.clientWidth / -2 + 'px';
-								$scope.$apply();
-							});
-						},
-						template: '<div ng-style="divStyle"><label ng-style="labelStyle">{{ offlineWords }}</label></div>'
-					});
-
-					return name;
-				}();
-
-				/***/
-			},
-			/* 1 */
-			/***/function (module, exports) {
-
-				module.exports = __WEBPACK_EXTERNAL_MODULE_1__;
-
-				/***/
-			},
-			/* 2 */
-			/***/function (module, exports) {
-
-				'use strict';
-
-				Object.defineProperty(exports, "__esModule", {
-					value: true
-				});
-				var defaultOpts = exports.defaultOpts = {
-					toolBar: true,
-					scaleCtrl: true,
-					overviewCtrl: true,
-					enableScrollWheelZoom: true,
-					showIndoorMap: false,
-					zoom: 10
-				};
-
-				var defaultOfflineOpts = exports.defaultOfflineOpts = {
-					retryInterval: 30000,
-					txt: 'OFFLINE'
-				};
-
-				/***/
-			},
-			/* 3 */
-			/***/function (module, exports) {
-
-				"use strict";
-
-				Object.defineProperty(exports, "__esModule", {
-					value: true
-				});
-				var validator = exports.validator = function validator(prop, desc) {
-					if (!prop) {
-						throw new Error(desc);
-					}
-				};
-
-				/***/
-			},
-			/* 4 */
-			/***/function (module, exports, __webpack_require__) {
-
-				'use strict';
-
-				Object.defineProperty(exports, "__esModule", {
-					value: true
-				});
-				exports.def = undefined;
-
-				var _angular = __webpack_require__(1);
-
-				var _angular2 = _interopRequireDefault(_angular);
-
-				function _interopRequireDefault(obj) {
-					return obj && obj.__esModule ? obj : { default: obj };
-				}
-
-				var def = exports.def = function def(name, dirName, ddo) {
-					_angular2.default.module(name, []).directive(dirName, [function () {
-						return ddo;
-					}]);
-				};
-
-				/***/
-			},
-			/* 5 */
-			/***/function (module, exports) {
-
-				'use strict';
-
-				Object.defineProperty(exports, "__esModule", {
-					value: true
-				});
-				var loader = exports.loader = function loader(ak, offlineOpts, callback) {
-					var MAP_URL = 'http://webapi.amap.com/maps?v=1.3&key=' + ak + '&callback=amapinit';
-
-					var aMap = window.aMap;
-					if (aMap && aMap.status === 'loading') {
-						return aMap.callbacks.push(callback);
-					}
-
-					if (aMap && aMap.status === 'loaded') {
-						return callback();
-					}
-
-					window.aMap = { status: 'loading', callbacks: [] };
-					window.amapinit = function () {
-						window.aMap.status = 'loaded';
-						callback();
-						window.aMap.callbacks.forEach(function (cb) {
-							return cb();
-						});
-						window.aMap.callbacks = [];
-					};
-
-					var createTag = function createTag() {
-						var script = document.createElement('script');
-						script.type = 'text/javascript';
-						script.src = MAP_URL;
-						script.onerror = function () {
-
-							Array.prototype.slice.call(document.querySelectorAll('ng-amap div')).forEach(function (node) {
-								node.style.opacity = 1;
-							});
-							document.body.removeChild(script);
-							setTimeout(createTag, offlineOpts.retryInterval);
-						};
-						document.body.appendChild(script);
-					};
-
-					createTag();
-				};
-
-				/***/
-			},
-			/* 6 */
-			/***/function (module, exports) {
-
-				'use strict';
-
-				Object.defineProperty(exports, "__esModule", {
-					value: true
-				});
-				var divStyle = exports.divStyle = {
-					width: '100%',
-					height: '100%',
-					backgroundColor: '#E6E6E6',
-					position: 'relative',
-					opacity: 0
-				};
-
-				var labelStyle = exports.labelStyle = {
-					fontSize: '30px',
-					position: 'absolute',
-					top: '50%',
-					marginTop: 0,
-					left: '50%',
-					marginLeft: 0
-				};
-
-				/***/
-			},
-			/* 7 */
-			/***/function (module, exports) {
-
-				'use strict';
-
-				Object.defineProperty(exports, "__esModule", {
-					value: true
-				});
-				var createInstance = exports.createInstance = function createInstance(opts, element) {
-					// create map instance
-					var map = new AMap.Map(element.id, {
-						scrollWheel: opts.enableScrollWheelZoom,
-						showIndoorMap: opts.showIndoorMap
-					});
-
-					// init map, set central location and zoom level
-					map.setZoomAndCenter(opts.zoom, new AMap.LngLat(opts.center.longitude, opts.center.latitude));
-					if (opts.toolBar) {
-						// add navigation control
-						map.plugin(['AMap.ToolBar'], function () {
-							map.addControl(new AMap.ToolBar());
-						});
-					}
-					if (opts.scaleCtrl) {
-						// add scale control
-						map.plugin(['AMap.Scale'], function () {
-							map.addControl(new AMap.Scale());
-						});
-					}
-					if (opts.overviewCtrl) {
-						//add overview map control
-						map.plugin(['AMap.OverView'], function () {
-							map.addControl(new AMap.OverView());
-						});
-					}
-					return map;
-				};
-
-				var createMarker = exports.createMarker = function createMarker(marker, pt) {
-					return new AMap.Marker({ icon: marker.icon, position: pt });
-				};
-
-				var redrawMarkers = exports.redrawMarkers = function redrawMarkers(map, previousMarkers, opts) {
-
-					previousMarkers.forEach(function (_ref) {
-						var marker = _ref.marker;
-						var listener = _ref.listener;
-
-						AMap.event.removeListener(listener);
-						marker.setMap(null);
-					});
-
-					previousMarkers.length = 0;
-
-					if (!opts.markers) {
-						return;
-					}
-
-					opts.markers.forEach(function (marker) {
-
-						var marker2 = createMarker(marker, new AMap.LngLat(marker.longitude, marker.latitude));
-
-						// add marker to the map
-						marker2.setMap(map);
-						var previousMarker = { marker: marker2, listener: null };
-						previousMarkers.push(previousMarker);
-
-						if (!marker.title && !marker.content) {
-							return;
-						}
-						var msg = '<p>' + marker.title + '</p><p>' + marker.content + '</p>';
-						var infoWindow2 = new AMap.InfoWindow({
-							isCustom: false,
-							autoMove: true,
-							content: msg
-						});
-						if (marker.width && marker.height) {
-							infoWindow2.setSize(new AMap.Size(marker.width, marker.height));
-						}
-						previousMarker.listener = AMap.event.addListener(marker2, 'click', function (e) {
-							infoWindow2.open(map, marker2.getPosition());
-						});
-					});
-				};
-
-				/***/
-			}
-			/******/])
-		);
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
 	});
-	;
-	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(4)(module)))
+	exports.ngAmap = undefined;
+
+	var _angular = __webpack_require__(5);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	var _defaults = __webpack_require__(8);
+
+	var _validator = __webpack_require__(9);
+
+	var _directiveDef = __webpack_require__(10);
+
+	var _scriptLoader = __webpack_require__(11);
+
+	var _offline = __webpack_require__(12);
+
+	var _map = __webpack_require__(13);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var ngAmap = exports.ngAmap = function () {
+	    var name = 'angular-amap';
+
+	    (0, _directiveDef.def)(name, 'ngAmap', {
+	        restrict: 'E',
+	        scope: {
+	            options: '=',
+	            ak: '@',
+	            offline: '=',
+	            onMapLoaded: '&'
+	        },
+	        link: function link($scope, element, attrs) {
+
+	            var opts = _angular2.default.extend({}, _defaults.defaultOpts, $scope.options);
+	            var offlineOpts = _angular2.default.extend({}, _defaults.defaultOfflineOpts, $scope.offline);
+	            $scope.offlineWords = offlineOpts.txt;
+	            (0, _validator.validator)($scope.ak, 'ak must not be empty');
+	            (0, _validator.validator)(opts.center, 'options.center must be set');
+	            (0, _validator.validator)(opts.center.longitude, 'options.center.longitude must be set');
+	            (0, _validator.validator)(opts.center.latitude, 'options.center.latitude must be set');
+	            (0, _validator.validator)(attrs.id, 'id cannot be ignored');
+
+	            (0, _scriptLoader.loader)($scope.ak, offlineOpts, function () {
+
+	                var map = (0, _map.createInstance)(opts, element[0]);
+
+	                $scope.onMapLoaded({ map: map });
+
+	                //create markers
+	                var previousMarkers = [];
+
+	                (0, _map.redrawMarkers)(map, previousMarkers, opts);
+
+	                $scope.$watch('options.center', function (newValue, oldValue) {
+
+	                    opts = $scope.options;
+	                    map.setZoomAndCenter(opts.zoom, new AMap.LngLat(opts.center.longitude, opts.center.latitude));
+	                    (0, _map.redrawMarkers)(map, previousMarkers, opts);
+	                }, true);
+
+	                $scope.$watch('options.markers', function (newValue, oldValue) {
+	                    (0, _map.redrawMarkers)(map, previousMarkers, opts);
+	                }, true);
+
+	                $scope.$watch('options.zoom', function (newValue, oldValue) {
+	                    map.setZoom(newValue);
+	                }, true);
+	            });
+
+	            $scope.divStyle = _offline.divStyle;
+	            $scope.labelStyle = _offline.labelStyle;
+
+	            setTimeout(function () {
+	                var $label = document.querySelector('ng-amap div label');
+	                $scope.labelStyle.marginTop = $label.clientHeight / -2 + 'px';
+	                $scope.labelStyle.marginLeft = $label.clientWidth / -2 + 'px';
+	                $scope.$apply();
+	            });
+	        },
+	        template: '<div ng-style="divStyle"><label ng-style="labelStyle">{{ offlineWords }}</label></div>'
+	    });
+
+	    return name;
+	}();
 
 /***/ },
-/* 4 */
+/* 8 */
 /***/ function(module, exports) {
 
-	module.exports = function(module) {
-		if(!module.webpackPolyfill) {
-			module.deprecate = function() {};
-			module.paths = [];
-			// module.parent = undefined by default
-			module.children = [];
-			module.webpackPolyfill = 1;
-		}
-		return module;
-	}
+	'use strict';
 
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var defaultOpts = exports.defaultOpts = {
+	    toolBar: true,
+	    scaleCtrl: true,
+	    overviewCtrl: true,
+	    enableScrollWheelZoom: true,
+	    showIndoorMap: false,
+	    zoom: 10
+	};
+
+	var defaultOfflineOpts = exports.defaultOfflineOpts = {
+	    retryInterval: 30000,
+	    txt: 'OFFLINE'
+	};
 
 /***/ },
-/* 5 */
+/* 9 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var validator = exports.validator = function validator(prop, desc) {
+	    if (!prop) {
+	        throw new Error(desc);
+	    }
+	};
+
+/***/ },
+/* 10 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	exports.def = undefined;
+
+	var _angular = __webpack_require__(5);
+
+	var _angular2 = _interopRequireDefault(_angular);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var def = exports.def = function def(name, dirName, ddo) {
+	    _angular2.default.module(name, []).directive(dirName, [function () {
+	        return ddo;
+	    }]);
+	};
+
+/***/ },
+/* 11 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var loader = exports.loader = function loader(ak, offlineOpts, callback) {
+	    var MAP_URL = 'http://webapi.amap.com/maps?v=1.3&key=' + ak + '&callback=amapinit';
+
+	    var aMap = window.aMap;
+	    if (aMap && aMap.status === 'loading') {
+	        return aMap.callbacks.push(callback);
+	    }
+
+	    if (aMap && aMap.status === 'loaded') {
+	        return callback();
+	    }
+
+	    window.aMap = { status: 'loading', callbacks: [] };
+	    window.amapinit = function () {
+	        window.aMap.status = 'loaded';
+	        callback();
+	        window.aMap.callbacks.forEach(function (cb) {
+	            return cb();
+	        });
+	        window.aMap.callbacks = [];
+	    };
+
+	    var createTag = function createTag() {
+	        var script = document.createElement('script');
+	        script.type = 'text/javascript';
+	        script.src = MAP_URL;
+	        script.onerror = function () {
+
+	            Array.prototype.slice.call(document.querySelectorAll('ng-amap div')).forEach(function (node) {
+	                node.style.opacity = 1;
+	            });
+	            document.body.removeChild(script);
+	            setTimeout(createTag, offlineOpts.retryInterval);
+	        };
+	        document.body.appendChild(script);
+	    };
+
+	    createTag();
+	};
+
+/***/ },
+/* 12 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var divStyle = exports.divStyle = {
+	    width: '100%',
+	    height: '100%',
+	    backgroundColor: '#E6E6E6',
+	    position: 'relative',
+	    opacity: 0
+	};
+
+	var labelStyle = exports.labelStyle = {
+	    fontSize: '30px',
+	    position: 'absolute',
+	    top: '50%',
+	    marginTop: 0,
+	    left: '50%',
+	    marginLeft: 0
+	};
+
+/***/ },
+/* 13 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	var createInstance = exports.createInstance = function createInstance(opts, element) {
+	    // create map instance
+	    var map = new AMap.Map(element.id, {
+	        scrollWheel: opts.enableScrollWheelZoom,
+	        showIndoorMap: opts.showIndoorMap
+	    });
+
+	    // init map, set central location and zoom level
+	    map.setZoomAndCenter(opts.zoom, new AMap.LngLat(opts.center.longitude, opts.center.latitude));
+	    if (opts.toolBar) {
+	        // add navigation control
+	        map.plugin(['AMap.ToolBar'], function () {
+	            map.addControl(new AMap.ToolBar());
+	        });
+	    }
+	    if (opts.scaleCtrl) {
+	        // add scale control
+	        map.plugin(['AMap.Scale'], function () {
+	            map.addControl(new AMap.Scale());
+	        });
+	    }
+	    if (opts.overviewCtrl) {
+	        //add overview map control
+	        map.plugin(['AMap.OverView'], function () {
+	            map.addControl(new AMap.OverView());
+	        });
+	    }
+	    return map;
+	};
+
+	var createMarker = exports.createMarker = function createMarker(marker, pt) {
+	    return new AMap.Marker({ icon: marker.icon, position: pt });
+	};
+
+	var redrawMarkers = exports.redrawMarkers = function redrawMarkers(map, previousMarkers, opts) {
+
+	    previousMarkers.forEach(function (_ref) {
+	        var marker = _ref.marker;
+	        var listener = _ref.listener;
+
+	        AMap.event.removeListener(listener);
+	        marker.setMap(null);
+	    });
+
+	    previousMarkers.length = 0;
+
+	    if (!opts.markers) {
+	        return;
+	    }
+
+	    opts.markers.forEach(function (marker) {
+
+	        var marker2 = createMarker(marker, new AMap.LngLat(marker.longitude, marker.latitude));
+
+	        // add marker to the map
+	        marker2.setMap(map);
+	        var previousMarker = { marker: marker2, listener: null };
+	        previousMarkers.push(previousMarker);
+
+	        if (!marker.title && !marker.content) {
+	            return;
+	        }
+	        var msg = '<p>' + marker.title + '</p><p>' + marker.content + '</p>';
+	        var infoWindow2 = new AMap.InfoWindow({
+	            isCustom: false,
+	            autoMove: true,
+	            content: msg
+	        });
+	        if (marker.width && marker.height) {
+	            infoWindow2.setSize(new AMap.Size(marker.width, marker.height));
+	        }
+	        previousMarker.listener = AMap.event.addListener(marker2, 'click', function (e) {
+	            infoWindow2.open(map, marker2.getPosition());
+	        });
+	    });
+	};
+
+/***/ },
+/* 14 */
 /***/ function(module, exports, __webpack_require__) {
 
 	module.exports = __webpack_require__.p + "145f9922c425a8c27418db718552be6f.png";
