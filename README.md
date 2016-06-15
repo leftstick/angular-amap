@@ -2,7 +2,7 @@
 ============================
 
 [![NPM version][npm-image]][npm-url]
-![][[bower-v]]
+![][bower-v]]
 ![][david-url]
 ![][dt-url]
 ![][license-url]
