@@ -1,6 +1,6 @@
 {
     "name": "angular-amap",
-    "version": "2.0.0",
+    "version": "3.0.0",
     "homepage": "https://github.com/leftstick/angular-amap",
     "authors": [
         "Howard.Zuo"
@@ -11,17 +11,15 @@
         "angular"
     ],
     "license": "MIT",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests",
-        "demo",
-        "src",
-        "docs"
-    ],
-    "devDependencies": {
-        "angular": "1.4.7"
-    }
+    "main": [
+      "dist/angular-amap.js",
+      "dist/angular-amap.min.js",
+      "src/style/offline.js",
+      "src/defaults.js",
+      "src/directiveDef.js",
+      "src/index.js",
+      "src/map.js",
+      "src/scriptLoader.js",
+      "src/validator.js"
+    ]
 }

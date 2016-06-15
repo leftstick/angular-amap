@@ -1,47 +1,42 @@
-# amap directive For AngularJS
+高德地图 directive For AngularJS
+============================
 
-![](http://img.shields.io/badge/bower_module-v2.0.0-green.svg)
 [![NPM version][npm-image]][npm-url]
+![][[bower-v]]
+![][david-url]
+![][dt-url]
+![][license-url]
 
-> AngularJS directives for [aMaps](http://lbs.amap.com/api/javascript-api/summary-3/)
+> A damn easy directive for 高德地图, and it's totally a re-write version for the previous one, including API updates and offline friendly
 
-v2.0.0
+![](https://raw.githubusercontent.com/leftstick/angular-amap/master/docs/offline.gif)
 
-This is a directive for AngularJS `1.4.0+`. And ease the way to display an amap on your web page.
+Try online demo here: [demonstration](http://leftstick.github.io/angular-amap/)
 
-## Prerequisites ##
+>If you are using the previous version `2.0.0`, [read it here](https://github.com/leftstick/angular-amap/tree/2.x)
 
-1. [angular](https://angularjs.org/)
-2. [amap](http://lbs.amap.com/)
+## Getting started
 
-## Installation ##
+This is a directive for AngularJS `^1.5.5`. And ease the way to display a 高德地图 on your page.
 
-### bower ###
-
-```shell
-bower install angular-amap --save
-```
-
-### npm ###
+If you plan to hack on the directives or want to run the example locally, first thing to do is to install NPM dependencies:
 
 ```shell
-npm install angular-amap --save
-```
-
-## Play with example ##
-
-Execute following commands:
-
-```shell
-bower install
 npm install
-gulp dev
 ```
+
+### Launch the demo
+
+To run the demo page, just run
+
+```shell
+npm start
+```
+
 and open your browser on `http://localhost:8080/`.
 
 ### Documentation
 The API specification documented at [API Docs](https://github.com/leftstick/angular-amap/blob/master/docs/APIDocs.md).
-
 
 ## LICENSE ##
 
@@ -49,4 +44,8 @@ The API specification documented at [API Docs](https://github.com/leftstick/angu
 
 
 [npm-url]: https://npmjs.org/package/angular-amap
-[npm-image]: https://badge.fury.io/js/angular-amap.png
+[npm-image]: https://img.shields.io/npm/v/angular-amap.svg
+[david-url]: https://david-dm.org/leftstick/angular-amap.png
+[dt-url]:https://img.shields.io/npm/dt/angular-amap.svg
+[license-url]:https://img.shields.io/npm/l/angular-amap.svg
+[bower-v]: https://img.shields.io/bower/v/angular-amap.svg

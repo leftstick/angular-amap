@@ -1,0 +1,12 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="demo">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Demo</title>
+</head>
+
+<body ng-controller="demoCtrl">
+    <ng-amap id="amap" options="mapOptions" offline="offline" on-map-loaded="loadMap(map)" ak="53deb06fba327390438a6dae38686827" style="display: block; width: 500px; height: 400px;"></a-map>
+</body>
+</html>
