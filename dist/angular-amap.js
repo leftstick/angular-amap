@@ -122,6 +122,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	                $scope.$watch('options.markers', function (newValue, oldValue) {
 	                    (0, _map.redrawMarkers)(map, previousMarkers, opts);
 	                }, true);
+
+	                $scope.$watch('options.zoom', function (newValue, oldValue) {
+	                    map.setZoom(newValue);
+	                }, true);
 	            });
 
 	            $scope.divStyle = _offline.divStyle;
