@@ -6,6 +6,12 @@
 npm install angular-amap --save
 ```
 
+**via bower**
+
+```shell
+bower install angular-amap --save
+```
+
 ## Import
 
 **ES2015**
