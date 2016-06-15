@@ -6,7 +6,8 @@
   "scripts": {
     "start": "webpack-dev-server --content-base build/ --hot --inline",
     "dist": "webpack --config webpack.config.prod.js",
-    "prepublish": "npm run dist"
+    "prepublish": "npm run dist",
+    "deploy": "rm -rf demo; webpack;"
   },
   "files": [
     "dist/angular-amap.js",
