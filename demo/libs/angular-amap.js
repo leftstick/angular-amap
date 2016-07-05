@@ -26,8 +26,8 @@
  *
  *
  *  @author      Howard.Zuo
- *  @copyright   Nov 5, 2015
- *  @version     1.2.0
+ *  @copyright   July 5, 2016
+ *  @version     2.0.1
  *
  */
 (function(global, factory) {
@@ -100,6 +100,7 @@
                 var mapOps = {scrollWheel: ops.enableScrollWheelZoom};
 
                 var map = new AMap.Map(element.find('div')[0], mapOps);
+
                 // init map, set central location and zoom level
                 map.setZoom(ops.zoom);
                 map.setCenter([
@@ -139,12 +140,6 @@
                 var previousMarkers = [];
                 var previousListeners = [];
 
-                var openInfoWindow = function(map, marker, infoWin) {
-                    return function(e) {
-                        infoWin.open(map, marker.getPosition());
-                    };
-                };
-
                 var mark = function() {
                     for (var i = 0; i < previousListeners.length; i++) {
                         AMap.event.removeListener(previousListeners[i]);
@@ -167,7 +162,7 @@
                         previousMarkers.push(marker2);
 
                         if (!marker.title && !marker.content) {
-                            return;
+                            continue;
                         }
                         var infoWindow2 = new AMap.InfoWindow({
                             isCustom: false,
@@ -177,7 +172,9 @@
                         if (marker.width && marker.height) {
                             infoWindow2.setSize(new AMap.Size(marker.width, marker.height));
                         }
-                        previousListeners.push(AMap.event.addListener(marker2, 'click', openInfoWindow(map, marker2, infoWindow2)));
+                        previousListeners.push(AMap.event.addListener(marker2, 'click', function(e) {
+                            infoWindow2.open(map, marker2.getPosition());
+                        }));
                     }
                 };
 

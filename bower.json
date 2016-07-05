@@ -1,6 +1,6 @@
 {
     "name": "angular-amap",
-    "version": "2.0.0",
+    "version": "2.0.1",
     "homepage": "https://github.com/leftstick/angular-amap",
     "authors": [
         "Howard.Zuo"
@@ -22,6 +22,6 @@
         "docs"
     ],
     "devDependencies": {
-        "angular": "1.4.7"
+        "angular": "^1.4.7"
     }
 }
