@@ -26,11 +26,11 @@
  *
  *
  *  @author      Howard.Zuo
- *  @copyright   July 5, 2016
- *  @version     2.0.1
+ *  @copyright   July 7, 2016
+ *  @version     2.0.2
  *
  */
-(function(global, factory) {
+(function (global, factory) {
     'use strict';
 
     if (typeof exports === 'object') {
@@ -41,7 +41,7 @@
         factory(global.angular);
     }
 
-}(window, function(angular) {
+}(window, function (angular) {
     'use strict';
 
     var defaults = {
@@ -52,11 +52,11 @@
         zoom: 10
     };
 
-    var checkNull = function(obj) {
+    var checkNull = function (obj) {
         return obj === null || obj === undefined;
     };
 
-    var checkMandatory = function(prop, desc) {
+    var checkMandatory = function (prop, desc) {
         if (!prop) {
             throw new Error(desc);
         }
@@ -67,7 +67,7 @@
      *
      * @constructor
      */
-    var aMapDir = function() {
+    var aMapDir = function () {
 
         // Return configured, directive instance
 
@@ -76,7 +76,7 @@
             scope: {
                 'options': '='
             },
-            link: function($scope, element, attrs) {
+            link: function ($scope, element, attrs) {
 
                 var ops = {};
                 ops.navCtrl = checkNull($scope.options.navCtrl) ? defaults.navCtrl : $scope.options.navCtrl;
@@ -110,21 +110,21 @@
 
                 if (ops.navCtrl) {
                     // add navigation control
-                    map.plugin(['AMap.ToolBar'], function() {
+                    map.plugin(['AMap.ToolBar'], function () {
                         var toolBar = new AMap.ToolBar();
                         map.addControl(toolBar);
                     });
                 }
                 if (ops.scaleCtrl) {
                     // add scale control
-                    map.plugin(['AMap.Scale'], function() {
+                    map.plugin(['AMap.Scale'], function () {
                         var scale = new AMap.Scale();
                         map.addControl(scale);
                     });
                 }
                 if (ops.overviewCtrl) {
                     //add overview map control
-                    map.plugin(['AMap.OverView'], function() {
+                    map.plugin(['AMap.OverView'], function () {
                         var overView = new AMap.OverView({
                             visible: false
                         });
@@ -136,51 +136,43 @@
                     return;
                 }
 
-                //create markers
-                var previousMarkers = [];
-                var previousListeners = [];
+                var mark = function () {
+                    var markerInfoWindow;
 
-                var mark = function() {
-                    for (var i = 0; i < previousListeners.length; i++) {
-                        AMap.event.removeListener(previousListeners[i]);
+                    /**
+                     * callback function when a marker is clicked
+                     * @param event
+                     */
+                    function markerClick(event) {
+                        markerInfoWindow.setContent(event.target.content);
+                        markerInfoWindow.open(map, event.target.getPosition());
                     }
-                    previousListeners.length = 0;
-                    for (var i = 0; i < previousMarkers.length; i++) {
-                        previousMarkers[i].setMap(null);
-                    }
-                    previousMarkers.length = 0;
+                    //Define the infoWindow once
+                    markerInfoWindow = new AMap.InfoWindow({offset: new AMap.Pixel(0, -30)});
 
                     for (var i in ops.markers) {
-                        var marker = ops.markers[i];
-                        var pt = new AMap.LngLat(marker.longitude, marker.latitude);
-                        var marker2 = new AMap.Marker({
-                            icon: marker.icon,
+                        var markerData = ops.markers[i];
+                        var pt = new AMap.LngLat(markerData.longitude, markerData.latitude);
+                        var mapMarker = new AMap.Marker({
+                            icon: markerData.icon,
                             position: pt
                         });
                         // add marker to the map
-                        marker2.setMap(map);
-                        previousMarkers.push(marker2);
+                        mapMarker.setMap(map);
 
-                        if (!marker.title && !marker.content) {
+                        if (!markerData.content) {
                             continue;
                         }
-                        var infoWindow2 = new AMap.InfoWindow({
-                            isCustom: false,
-                            autoMove: true,
-                            content: '<p>' + (marker.title ? marker.title : '') + '</p><p>' + (marker.content ? marker.content : '') + '</p>'
-                        });
-                        if (marker.width && marker.height) {
-                            infoWindow2.setSize(new AMap.Size(marker.width, marker.height));
-                        }
-                        previousListeners.push(AMap.event.addListener(marker2, 'click', function(e) {
-                            infoWindow2.open(map, marker2.getPosition());
-                        }));
+                        mapMarker.content = markerData.content ? markerData.content : '';
+                        mapMarker.on('click', markerClick);
                     }
+                    //Fitting all markers to fit the view
+                    map.setFitView();
                 };
 
                 mark();
 
-                $scope.$watch('options.center', function(newValue, oldValue) {
+                $scope.$watch('options.center', function (newValue, oldValue) {
                     ops = $scope.options;
                     map.setCenter([
                         ops.center.longitude,
@@ -189,12 +181,12 @@
                     mark();
                 }, true);
 
-                $scope.$watch('options.markers', function(newValue, oldValue) {
+                $scope.$watch('options.markers', function (newValue, oldValue) {
                     ops.markers = $scope.options.markers;
                     mark();
                 }, true);
 
-                $scope.$on('$destroy', function() {
+                $scope.$on('$destroy', function () {
                     if (map && map.destroy) {
                         map.destroy();
                     }
