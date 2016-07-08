@@ -5,7 +5,7 @@
 
 > AngularJS directives for [aMaps](http://lbs.amap.com/api/javascript-api/summary-3/)
 
-v2.0.1
+v2.0.2
 
 This is a directive for AngularJS `1.4.0+`. And ease the way to display an amap on your web page.
 
