@@ -79,7 +79,6 @@ app.controller('demoCtrl', ['$scope',
                 longitude: longitude,
                 latitude: latitude,
                 icon: 'img/mappiont.png',
-                title: 'Where',
                 content: 'Put description here'
             }]
         };
@@ -104,5 +103,4 @@ app.controller('demoCtrl', ['$scope',
 | marker.width | number | No | The width of the the infowindow which displayed while clicking the markder | 300 |
 | marker.height | number | No | The height of the the infowindow which displayed while clicking the markder | 300 |
 | marker.icon | string | No | The icon's url for the marker. The default icon will be set if you haven't set this value. | 'img/mappiont.png' |
-| marker.title | string | No | The title on the infowindow displayed once you click the marker. | 'hello' |
 | marker.content | string | No | The content on the infowindow displayed once you click the marker. | 'hello world' |

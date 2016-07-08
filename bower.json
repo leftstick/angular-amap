@@ -1,9 +1,13 @@
 {
     "name": "angular-amap",
-    "version": "2.0.1",
+    "version": "2.0.2",
     "homepage": "https://github.com/leftstick/angular-amap",
     "authors": [
         "Howard.Zuo"
+    ],
+    "main": [
+      "angular-amap.js",
+      "angular-amap.min.js"
     ],
     "description": "An amap directive for AngularJS",
     "keywords": [
@@ -11,16 +15,6 @@
         "angular"
     ],
     "license": "MIT",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests",
-        "demo",
-        "src",
-        "docs"
-    ],
     "devDependencies": {
         "angular": "^1.4.7"
     }

@@ -1,6 +1,6 @@
 {
   "name": "angular-amap",
-  "version": "2.0.1",
+  "version": "2.0.2",
   "description": "A a-map directive for AngularJS",
   "main": "./src/angular-amap.js",
   "repository": {

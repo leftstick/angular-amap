@@ -20,7 +20,6 @@
                         longitude: longitude,
                         latitude: latitude,
                         icon: 'img/mappiont.png',
-                        title: 'Where',
                         content: 'Put description here'
                     }
                 ]
