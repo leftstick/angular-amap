@@ -1,6 +1,6 @@
 {
   "name": "angular-amap",
-  "version": "3.0.0",
+  "version": "4.0.0",
   "description": "A 高德地图 component for AngularJS",
   "main": "dist/angular-amap.js",
   "repository": {
