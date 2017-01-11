@@ -69,19 +69,19 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _aMap2 = _interopRequireDefault(_aMap);
 	
-	var _marker = __webpack_require__(7);
+	var _marker = __webpack_require__(8);
 	
 	var _marker2 = _interopRequireDefault(_marker);
 	
-	var _control = __webpack_require__(8);
+	var _plugin = __webpack_require__(9);
 	
-	var _control2 = _interopRequireDefault(_control);
+	var _plugin2 = _interopRequireDefault(_plugin);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var moduleName = 'angular-amap';
 	
-	_angular2.default.module(moduleName, []).component('ngAmap', _aMap2.default).component('marker', _marker2.default).component('control', _control2.default);
+	_angular2.default.module(moduleName, []).component('ngAmap', _aMap2.default).component('marker', _marker2.default).component('plugin', _plugin2.default);
 	
 	var ngAMap = exports.ngAMap = moduleName;
 
@@ -145,6 +145,8 @@ return /******/ (function(modules) { // webpackBootstrap
 	                var _this = this;
 	
 	                (0, _validate.nullCheck)(this.key, 'key is required for <ng-amap>');
+	                (0, _validate.nullCheck)(this.mapOptions, 'mapOptions is required for <ng-amap>');
+	                (0, _validate.nullCheck)(this.mapOptions.center, 'mapOptions.center is required for <ng-amap>');
 	
 	                this.mapReady = (0, _loader.load)(this.key).then(function () {
 	                    return (0, _map.create)(_this.$element.children()[0], _this.mapOptions);
@@ -178,6 +180,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	        }, {
 	            key: '$onDestroy',
 	            value: function $onDestroy() {
+	                this.map.destroy();
 	                AMap.event.removeListener(this.map, 'click', this.clickListener);
 	            }
 	        }, {
@@ -190,18 +193,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	        return controller;
 	    }()
 	};
-	
-	
-	function handleMapOperation(map, method) {
-	    for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
-	        args[_key - 2] = arguments[_key];
-	    }
-	
-	    return new Promise(function (resolve) {
-	        map[method].apply(map, args);
-	        resolve();
-	    });
-	}
 
 /***/ },
 /* 3 */
@@ -351,19 +342,36 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _validate = __webpack_require__(4);
 	
+	var _transformer = __webpack_require__(7);
+	
 	function create(element, mapOptions) {
-	    return new AMap.Map(element, mapOptions);
+	    return new AMap.Map(element, transformOptions(mapOptions));
 	}
 	
 	function refresh(map, mapOptions) {
-	    !(0, _validate.isNull)(mapOptions) && (0, _validate.isArray)(mapOptions.layers) && map.setLayers(mapOptions.layers);
-	    !(0, _validate.isNull)(mapOptions) && (0, _validate.isNumber)(mapOptions.zoom) && map.setZoom(mapOptions.zoom);
-	    !(0, _validate.isNull)(mapOptions) && !(0, _validate.isNull)(mapOptions.center) && map.setCenter(mapOptions.center);
-	    !(0, _validate.isNull)(mapOptions) && (0, _validate.isNumber)(mapOptions.labelzIndex) && map.setlabelzIndex(mapOptions.labelzIndex);
-	    !(0, _validate.isNull)(mapOptions) && (0, _validate.isString)(mapOptions.lang) && map.setLang(mapOptions.lang);
-	    !(0, _validate.isNull)(mapOptions) && (0, _validate.isString)(mapOptions.cursor) && map.setDefaultCursor(mapOptions.cursor);
-	    !(0, _validate.isNull)(mapOptions) && !(0, _validate.isNull)(mapOptions.defaultLayer) && map.setDefaultLayer(mapOptions.defaultLayer);
-	    !(0, _validate.isNull)(mapOptions) && !(0, _validate.isNull)(mapOptions.city) && map.setCity(mapOptions.city);
+	    var opts = transformOptions(mapOptions);
+	
+	    map.setCenter(opts.center);
+	
+	    (0, _validate.isArray)(opts.layers) && map.setLayers(opts.layers);
+	    (0, _validate.isNumber)(opts.zoom) && map.setZoom(opts.zoom);
+	    (0, _validate.isNumber)(opts.labelzIndex) && map.setlabelzIndex(opts.labelzIndex);
+	    (0, _validate.isString)(opts.lang) && map.setLang(opts.lang);
+	    (0, _validate.isString)(opts.cursor) && map.setDefaultCursor(opts.cursor);
+	    !(0, _validate.isNull)(opts.defaultLayer) && map.setDefaultLayer(opts.defaultLayer);
+	    !(0, _validate.isNull)(opts.city) && map.setCity(opts.city);
+	}
+	
+	function transformOptions(options) {
+	    var opts = JSON.parse(JSON.stringify(options));
+	    opts.center = (0, _transformer.lngLat)(opts.center, 'mapOptions.center');
+	    if (!(0, _validate.isNull)(opts.view)) {
+	        opts.view = (0, _transformer.view2D)(opts.view, 'mapOptions.view');
+	    }
+	    if (!(0, _validate.isNull)(opts.defaultLayer)) {
+	        opts.defaultLayer = (0, _transformer.tileLayer)(opts.defaultLayer, 'mapOptions.defaultLayer');
+	    }
+	    return opts;
 	}
 
 /***/ },
@@ -375,10 +383,117 @@ return /******/ (function(modules) { // webpackBootstrap
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
+	exports.lngLat = lngLat;
+	exports.view2D = view2D;
+	exports.pixel = pixel;
+	exports.size = size;
+	exports.icon = icon;
+	exports.marker = marker;
+	
+	var _validate = __webpack_require__(4);
+	
+	function lngLat(obj, field) {
+	    var msg = 'passed ' + field + ' is not correct';
+	    if ((0, _validate.isArray)(obj)) {
+	        if (obj.length !== 2) {
+	            throw new Error(msg);
+	        }
+	        return new AMap.LngLat(obj[0], obj[1]);
+	    }
+	
+	    if (!(0, _validate.isNumber)(obj.lng) && !(0, _validate.isNumber)(obj.lat)) {
+	        throw new Error(msg);
+	    }
+	    return new AMap.LngLat(obj.lng, obj.lat);
+	}
+	
+	function view2D(obj, field) {
+	    var msg = 'passed ' + field + ' is not correct';
+	
+	    var opts = JSON.parse(JSON.stringify(obj));
+	    if ((0, _validate.isNull)(opts.center)) {
+	        throw new Error(msg + ', center property is missed');
+	    }
+	    opts.center = lngLat(obj.center, field + '.center');
+	    return new AMap.View2D(opts);
+	}
+	
+	function pixel(obj, field) {
+	    var msg = 'passed ' + field + ' is not correct';
+	
+	    if (!(0, _validate.isNumber)(obj.x)) {
+	        throw new Error(msg + ', x property is not a number');
+	    }
+	    if (!(0, _validate.isNumber)(obj.y)) {
+	        throw new Error(msg + ', y property is not a number');
+	    }
+	    return new AMap.Pixel(obj.x, obj.y);
+	}
+	
+	function size(obj, field) {
+	    var msg = 'passed ' + field + ' is not correct';
+	
+	    if (!(0, _validate.isNumber)(obj.width)) {
+	        throw new Error(msg + ', width property is not a number');
+	    }
+	    if (!(0, _validate.isNumber)(obj.height)) {
+	        throw new Error(msg + ', height property is not a number');
+	    }
+	    return new AMap.Size(obj.width, obj.height);
+	}
+	
+	function icon(obj, field) {
+	    var msg = 'passed ' + field + ' is not correct';
+	    if ((0, _validate.isString)(obj)) {
+	        return AMap.Icon({
+	            image: obj
+	        });
+	    }
+	    var opts = JSON.parse(JSON.stringify(obj));
+	    if (opts.size) {
+	        opts.size = size(opts.size, field + '.size');
+	    }
+	    if (opts.imageOffset) {
+	        opts.imageOffset = pixel(opts.imageOffset, field + '.imageOffset');
+	    }
+	    if (opts.imageSize) {
+	        opts.imageSize = size(opts.imageSize, field + '.imageSize');
+	    }
+	    return new AMap.Icon(opts);
+	}
+	
+	function marker(obj, field) {
+	    var opts = JSON.parse(JSON.stringify(obj));
+	    if (opts.position) {
+	        opts.position = lngLat(opts.position, field + '.position');
+	    }
+	    if (opts.offset) {
+	        opts.offset = pixel(opts.offset, field + '.offset');
+	    }
+	    if (opts.icon) {
+	        opts.icon = icon(opts.icon, field + '.icon');
+	    }
+	    if (opts.shadow) {
+	        opts.shadow = icon(opts.shadow, field + '.shadow');
+	    }
+	    return new AMap.Marker(opts);
+	}
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
 	
 	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 	
 	var _validate = __webpack_require__(4);
+	
+	var _transformer = __webpack_require__(7);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -410,7 +525,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	                (0, _validate.nullCheck)(this.options.position, 'options.position is required for <marker>');
 	
 	                this.mapCtrl.mapReady.then(function () {
-	                    var marker = _this.marker = new AMap.Marker(_this.options);
+	                    var marker = _this.marker = (0, _transformer.marker)(_this.options, 'options');
 	                    marker.setMap(_this.mapCtrl.getMap());
 	                    return marker;
 	                }).then(function (marker) {
@@ -441,7 +556,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 8 */
+/* 9 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -454,11 +569,13 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _validate = __webpack_require__(4);
 	
+	var _transformer = __webpack_require__(7);
+	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
 	exports.default = {
 	    bindings: {
-	        type: '@',
+	        name: '@',
 	        options: '<'
 	    },
 	    require: {
@@ -476,10 +593,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            value: function $onInit() {
 	                var _this = this;
 	
-	                (0, _validate.controlTypeCheck)(this.type);
+	                (0, _validate.isNull)(this.name);
 	
 	                this.mapCtrl.mapReady.then(function () {
-	                    return createControl(_this.mapCtrl.getMap(), _this.type.toLowerCase(), _this.options);
+	                    return createControl(_this.mapCtrl.getMap(), _this.name, transformOptions(_this.mapCtrl.getMap(), _this.options || {}));
 	                }).then(function (control) {
 	                    _this.control = control;
 	                    _this.mapCtrl.getMap().addControl(control);
@@ -497,29 +614,24 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 	
 	
-	function createControl(map, type, options) {
+	function createControl(map, name, options) {
 	    return new Promise(function (resolve, reject) {
-	        if (type === 'maptype') {
-	            return map.plugin(['AMap.MapType'], function () {
-	                resolve(new AMap.MapType(options));
-	            });
-	        }
-	        if (type === 'overview') {
-	            return map.plugin(['AMap.OverView'], function () {
-	                resolve(new AMap.OverView(options));
-	            });
-	        }
-	        if (type === 'scale') {
-	            return map.plugin(['AMap.Scale'], function () {
-	                resolve(new AMap.Scale(options));
-	            });
-	        }
-	        if (type === 'toolbar') {
-	            return map.plugin(['AMap.ToolBar'], function () {
-	                resolve(new AMap.ToolBar(options));
-	            });
-	        }
+	        return map.plugin(['AMap.' + name], function () {
+	            resolve(new AMap[name](options));
+	        });
 	    });
+	}
+	
+	function transformOptions(map, options) {
+	    var opts = JSON.parse(JSON.stringify(options));
+	    if (opts.offset) {
+	        opts.offset = (0, _transformer.pixel)(opts.offset, 'options.offset');
+	    }
+	    if (opts.locationMarker) {
+	        opts.locationMarker = (0, _transformer.marker)(opts.locationMarker, 'options.locationMarker');
+	        opts.locationMarker.setMap(map);
+	    }
+	    return opts;
 	}
 
 /***/ }
