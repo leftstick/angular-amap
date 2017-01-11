@@ -1,0 +1,29 @@
+$width: 1000px;
+
+quickstart {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+quickstart .container {
+    width: $width;
+}
+
+quickstart .menu {
+    list-style-type: circle;
+}
+
+quickstart .menu li {
+    margin-bottom: 10px;
+}
+
+quickstart .type-name {
+    margin-bottom: 10px;
+}
+
+@media screen and (max-width: $width) {
+    quickstart .container {
+        width: 100%;
+    }
+}

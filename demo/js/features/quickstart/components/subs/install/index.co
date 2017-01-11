@@ -1,0 +1,34 @@
+export default {
+    template: `
+        <h1>Install</h1>
+        <ul class="menu" highlight>
+            <li>
+                <div>
+                    <div class="type-name">Npm:</div>
+                    <div class="snippet">
+                        <pre><code class="bash">npm install angular-amap --save</code></pre>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div class="type-name">Bower:</div>
+                    <div class="snippet">
+                        <pre><code class="bash">bower install angular-amap --save</code></pre>
+                    </div>
+                    <p>It is recommended to use <a href="http://webpack.github.io/" target="_blank">webpack</a> to bootstrap dependencies via ES2015 or CommonJS modular</p>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div class="type-name">Download:</div>
+                    <p>Alternatively, download <a href="https://raw.github.com/leftstick/angular-amap/master/dist/angular-amap.js">angular-amap.js</a> (<a href="https://raw.github.com/leftstick/angular-amap/master/dist/angular-amap.min.js">minified version</a>)</p>
+                </div>
+            </li>
+        </ul>
+    `,
+    controller: class {
+        /* @ngInject */
+        constructor() {}
+    }
+};

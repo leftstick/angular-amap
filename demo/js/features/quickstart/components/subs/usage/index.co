@@ -1,0 +1,55 @@
+export default {
+    template: `
+        <h1>Usage</h1>
+        <ul class="menu" highlight>
+            <li>
+                <div>
+                    <div class="type-name">Use <code>angular-amap</code> module:</div>
+                    <div class="snippet">
+                        <pre><code class="javascript">const app = angular.module('app', [ngAMap]);</code></pre>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div class="type-name">Add <code>&lt;ng-amap&gt;</code> element in template:</div>
+                    <div class="snippet">
+                        <pre><code class="html">&lt;ng-amap key="{your key}" map-options="opts"&gt;&lt;/ng-amap&gt;</code></pre>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div class="type-name">Define <code>opts</code>:</div>
+                    <div class="snippet">
+                        <pre><code class="javascript">app.controller('demoCtrl', ['$scope',
+    function($scope) {
+        $scope.opts = {
+            center: [121.499981, 31.239226],
+            zoom: 16
+        };
+    }
+]);</code></pre>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div class="type-name">Specify size for <code>&lt;amap&gt;</code>:</div>
+                    <div class="snippet">
+                        <pre><code class="css">ng-amap {
+    display: block;
+    width: 600px;
+    height: 500px;
+}</code></pre>
+                    </div>
+                    <blockquote>Map won't be visible if no size specified</blockquote>
+                </div>
+            </li>
+        </ul>
+    `,
+    controller: class {
+        /* @ngInject */
+        constructor() {}
+    }
+};

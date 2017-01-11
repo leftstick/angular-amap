@@ -1,25 +1,27 @@
 {
-    "name": "angular-amap",
-    "version": "3.0.0",
-    "homepage": "https://github.com/leftstick/angular-amap",
-    "authors": [
-        "Howard.Zuo"
-    ],
-    "description": "An amap directive for AngularJS",
-    "keywords": [
-        "amap",
-        "angular"
-    ],
-    "license": "MIT",
-    "main": [
-      "dist/angular-amap.js",
-      "dist/angular-amap.min.js",
-      "src/style/offline.js",
-      "src/defaults.js",
-      "src/directiveDef.js",
-      "src/index.js",
-      "src/map.js",
-      "src/scriptLoader.js",
-      "src/validator.js"
-    ]
+  "name": "angular-amap",
+  "description": "A 高德地图 component for AngularJS",
+  "main": [
+    "dist/angular-amap.js",
+    "dist/angular-amap.min.js"
+  ],
+  "moduleType": [
+    "amd",
+    "globals",
+    "node",
+    "es6"
+  ],
+  "authors": [
+    "Howard.Zuo"
+  ],
+  "license": "GPL-3.0",
+  "keywords": [
+    "amap",
+    "angularjs"
+  ],
+  "homepage": "https://github.com/leftstick/angular-amap",
+  "ignore": [
+    "**/.*",
+    "node_modules"
+  ]
 }

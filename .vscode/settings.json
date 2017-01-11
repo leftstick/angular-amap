@@ -1,0 +1,9 @@
+// Place your settings in this file to overwrite default and user settings.
+{
+    "editor.formatOnSave": true,
+    "html.format.enable": false,
+    "javascript.validate.enable": false,
+    "files.associations": {
+        "*.css": "postcss"
+    }
+}

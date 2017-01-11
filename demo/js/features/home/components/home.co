@@ -1,0 +1,41 @@
+import './home.css';
+
+const ORIENTAL_PEARL = [121.499981, 31.239226];
+
+export default {
+    template: `
+    <h1 class="page-title">angular-amap</h1>
+
+    <ng-amap key="53deb06fba327390438a6dae38686827" map-options="$ctrl.opts" click="$ctrl.onMapClicked(e)">
+        <marker options="$ctrl.markerOpts" click="$ctrl.onMarkerClicked(e, marker)"></marker>
+        <plugin name="MapType"></plugin>
+        <plugin name="OverView"></plugin>
+    </ng-amap>
+
+    <github></github>
+
+    <div class="home-desc">
+        <about class="section"></about>
+        <version class="section"></version>
+        <contribution class="section"></contribution>
+    <div>
+    `,
+    controller: class {
+        /* @ngInject */
+        constructor() {
+            this.opts = {
+                center: ORIENTAL_PEARL,
+                zoom: 16
+            };
+            this.markerOpts = {
+                position: ORIENTAL_PEARL
+            };
+        }
+
+        onMarkerClicked(e, marker) {
+            const p = marker.getPosition();
+            //eslint-disable-next-line
+            alert(`The marker you clicked at: ${p.lng}, ${p.lat}`);
+        }
+    }
+};

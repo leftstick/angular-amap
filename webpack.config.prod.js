@@ -1,14 +1,14 @@
-var webpack = require('webpack');
-var UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
-var HtmlWebpackPlugin = require('html-webpack-plugin');
-var path = require('path');
+
+const {resolve} = require('path');
+const webpack = require('webpack');
+const UnminifiedWebpackPlugin = require('unminified-webpack-plugin');
 
 module.exports = {
     entry: {
-        app: './src/index.js'
+        index: resolve(__dirname, 'src', 'index.js')
     },
     output: {
-        path: path.resolve(__dirname, 'dist'),
+        path: resolve(__dirname, 'dist'),
         filename: 'angular-amap.min.js',
         libraryTarget: 'umd'
     },
@@ -16,8 +16,8 @@ module.exports = {
         loaders: [
             {
                 test: /\.js$/,
-                loader: 'babel?{"presets":["es2015"]}',
-                exclude: /node_modules/
+                loader: 'ng-annotate!babel?{"presets":["es2015"], "plugins": ["transform-object-rest-spread"]}',
+                exclude: /(node_modules)/
             }
         ]
     },

@@ -1,4 +1,8 @@
-bower/
+#npm
 node_modules/
+
+#osx
 .DS_Store
-demo
+
+#build
+build/

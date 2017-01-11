@@ -1,0 +1,42 @@
+import './apiContent.css';
+export default {
+    bindings: {
+        api: '<'
+    },
+    template: `
+    <div swipe="$ctrl.onSwipe(direction)" skip-selectors="$ctrl.selectors">
+        <div class="api-name">
+            <h3>{{ $ctrl.api }}</h3>
+        </div>
+        <div class="api-introduction">
+            <doc-ng-amap ng-if="$ctrl.api === 'ng-amap'"></doc-ng-amap>
+            <doc-marker ng-if="$ctrl.api === 'marker'"></doc-marker>
+            <doc-plugin ng-if="$ctrl.api === 'plugin'"></doc-plugin>
+
+            <doc-lng-lat ng-if="$ctrl.api === 'lngLat'"></doc-lng-lat>
+            <doc-size ng-if="$ctrl.api === 'size'"></doc-size>
+            <doc-icon ng-if="$ctrl.api === 'icon'"></doc-icon>
+            <doc-pixel ng-if="$ctrl.api === 'pixel'"></doc-pixel>
+        </div>
+    </div>
+    `,
+    controller: class {
+        /* @ngInject */
+        constructor($location) {
+            this.$location = $location;
+            this.selectors = ['.snippet', 'ng-amap'];
+            this.routesOrder = ['ng-amap', 'marker', 'plugin', 'lngLat', 'size', 'icon', 'pixel'];
+        }
+
+        onSwipe(dir) {
+            const curIndex = this.routesOrder.indexOf(this.api);
+            let route;
+            if (dir === 'right') {
+                route = curIndex - 1 < 0 ? this.routesOrder[0] : this.routesOrder[curIndex - 1];
+            } else {
+                route = curIndex + 1 > this.routesOrder.length - 1 ? this.routesOrder[this.routesOrder.length - 1] : this.routesOrder[curIndex + 1];
+            }
+            this.$location.search('api', route);
+        }
+    }
+};

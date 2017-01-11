@@ -1,55 +1,52 @@
 {
   "name": "angular-amap",
   "version": "3.0.0",
-  "description": "A a-map directive for AngularJS",
-  "main": "./dist/angular-amap.js",
-  "scripts": {
-    "start": "webpack-dev-server --content-base build/ --hot --inline",
-    "dist": "webpack --config webpack.config.prod.js",
-    "prepublish": "npm run dist",
-    "deploy": "rm -rf demo; webpack --output-public-path '/angular-amap/'; git checkout gh-pages; rm -rf *.*; mv demo/* ."
-  },
-  "files": [
-    "dist/angular-amap.js",
-    "dist/angular-amap.min.js",
-    "src/style/offline.js",
-    "src/defaults.js",
-    "src/directiveDef.js",
-    "src/index.js",
-    "src/map.js",
-    "src/scriptLoader.js",
-    "src/validator.js"
-  ],
+  "description": "A 高德地图 component for AngularJS",
+  "main": "dist/angular-amap.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/leftstick/angular-amap.git"
   },
+  "scripts": {
+    "start": "webpack-dev-server --content-base build/ --hot --inline --host 0.0.0.0 --port 8080",
+    "dist": "rm -rf dist && webpack --config webpack.config.prod.js",
+    "deployDemo": "DEMO=true webpack && git checkout gh-pages && rm -f *.* && mv build/* ."
+  },
+  "files": [
+    "dist/angular-amap.js",
+    "dist/angular-amap.min.js"
+  ],
   "keywords": [
     "amap",
-    "angular"
+    "angularjs"
   ],
   "author": "Howard.Zuo",
-  "license": "MIT",
+  "license": "GPL-3.0",
   "bugs": {
     "url": "https://github.com/leftstick/angular-amap/issues"
   },
   "homepage": "https://github.com/leftstick/angular-amap",
   "peerDependencies": {
-    "angular": "^1.5.5"
+    "angular": "^1.6.1"
   },
   "devDependencies": {
-    "babel-core": "^6.9.1",
-    "babel-loader": "^6.2.4",
-    "babel-preset-es2015": "^6.9.0",
-    "css-loader": "^0.23.1",
-    "file-loader": "^0.8.5",
-    "html-webpack-plugin": "^2.19.0",
+    "angular": "^1.6.1",
+    "angular-route": "^1.6.1",
+    "autoprefixer": "^6.6.1",
+    "babel-core": "^6.21.0",
+    "babel-loader": "^6.2.10",
+    "babel-plugin-transform-object-rest-spread": "^6.20.2",
+    "babel-preset-es2015": "^6.18.0",
+    "css-loader": "^0.26.1",
+    "file-loader": "^0.9.0",
+    "highlight.js": "^9.9.0",
+    "html-webpack-plugin": "^2.26.0",
+    "ng-annotate-loader": "^0.2.0",
+    "postcss-loader": "^1.2.1",
+    "postcss-simple-vars": "^3.0.0",
     "style-loader": "^0.13.1",
-    "unminified-webpack-plugin": "^1.0.0",
-    "webpack": "^1.13.1",
-    "webpack-dev-server": "^1.14.1"
-  },
-  "dependencies": {
-    "html-loader": "^0.4.3"
+    "unminified-webpack-plugin": "^1.2.0",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
   }
 }

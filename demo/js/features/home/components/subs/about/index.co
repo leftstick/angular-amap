@@ -1,0 +1,10 @@
+export default {
+    template: `
+        <h1>About</h1>
+        <p><code>angular-amap</code> is a set of components written in ES2015 which integrate <a href="http://lbs.amap.com/" target="_blank">高德地图</a> in an AngularJS applications.</p>
+        <p>It is based on the <a href="http://lbs.amap.com/" target="_blank">高德地图</a> Javascript API version 1.3, and <a href="https://angularjs.org/" target="_blank">Angular</a> version ^1.6.1</p>
+    `,
+    controller: class {
+        constructor() {}
+    }
+};

@@ -1,0 +1,26 @@
+import './apidoc.css';
+import {isString} from '../../../fw/helper/object';
+export default {
+    template: `
+    <div class="container">
+        <h1 class="page-title">API Documentation</h1>
+        <div class="doc">
+            <api-sidebar api="$ctrl.api"></api-sidebar>
+            <api-content api="$ctrl.api"></api-content>
+        </div>
+    </div>
+    `,
+    controller: class {
+        /* @ngInject */
+        constructor($location) {
+            this.$location = $location;
+        }
+
+        $onInit() {
+            if (!isString(this.$location.search().api)) {
+                return this.$location.search('api', 'ng-amap');
+            }
+            this.api = this.$location.search().api;
+        }
+    }
+};

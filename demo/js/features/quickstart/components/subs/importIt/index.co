@@ -1,0 +1,40 @@
+export default {
+    template: `
+        <h1>Import</h1>
+        <ul class="menu" highlight>
+            <li>
+                <div>
+                    <div class="type-name">ES2015:</div>
+                    <div class="snippet">
+                        <pre><code class="javascript">import {ngAMap} from 'angular-amap';</code></pre>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div class="type-name">CommonJS:</div>
+                    <div class="snippet">
+                        <pre><code class="javascript">const {ngAMap} = require('angular-amap');</code></pre>
+                    </div>
+                    <p>It is recommended to use <a href="http://webpack.github.io/" target="_blank">webpack</a> to bootstrap dependencies via ES2015 or CommonJS modular</p>
+                </div>
+            </li>
+            <li>
+                <div>
+                    <div class="type-name">Script:</div>
+                    <div class="snippet">
+                        <pre><code class="html">&lt;script type="text/javascript" src="angular/angular.min.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript" src="angular-amap/dist/angular-amap.js"&gt;&lt;/script&gt;
+&lt;script type="text/javascript"&gt;
+    var ngAMap = window.ngAMap;
+&lt;/script&gt;</code></pre>
+                    </div>
+                </div>
+            </li>
+        </ul>
+    `,
+    controller: class {
+        /* @ngInject */
+        constructor() {}
+    }
+};

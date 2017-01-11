@@ -1,0 +1,120 @@
+import markericonUrl from 'img/markericon.png';
+
+const NEW_SHANGHAI_INTERNATIONAL_TOWER = {
+    longitude: 121.51606,
+    latitude: 31.244604
+};
+
+export default {
+    template: `
+    <p>
+        The <code>marker</code> component is sub-component of <code>ng-amap</code>. It is used to add <code>AMap.Marker</code> to the map.
+    </p>
+    <h2 class="title">Usage</h2>
+    <div class="snippet" highlight>
+        <pre><code class="html">&lt;ng-amap keyk="{string}" map-options="{expression}"&gt;
+    &lt;marker options="{expression}" click="{expression}"&gt;&lt;marker&gt;    
+&lt;/ng-amap&gt;</code></pre>
+    </div>
+    <h2 class="title">Attributes</h2>
+    <blockquote>Required properties are in red</blockquote>
+    <table class="matrix">
+        <thead>
+            <tr>
+                <th style="width: 80px;">Param</th>
+                <th>Type</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>options</td>
+                <td><span class="label">expression</span></td>
+                <td>
+                Literal for constructing marker. See <a href="http://lbs.amap.com/api/javascript-api/reference/overlay/#MarkerOptions" target="_blank">MarkerOptions</a>
+                </td>
+            </tr>
+            <tr>
+                <td>click</td>
+                <td><span class="label">expression</span></td>
+                <td>Expression to evaluate upon marker click event. (Three objects passed to this callback, <code>e</code> for <a href="http://lbs.amap.com/api/javascript-api/reference/event/#MapsEvent" target="_blank">event</a>, <code>marker</code> for instance of <a href="http://lbs.amap.com/api/javascript-api/reference/overlay/#Marker" target="_blank">AMap.Marker</a>, <code>map</code> for instance of <a href="http://lbs.amap.com/api/javascript-api/reference/map/" target="_blank">AMap.Map</a>)</td>
+            </tr>
+        </tbody>
+    </table>
+    <h2 class="title">Example</h2>
+    <ng-amap key="53deb06fba327390438a6dae38686827" map-options="$ctrl.opts">
+        <marker options="$ctrl.markerOpts" click="$ctrl.showWindow(e, marker, map)"></marker>
+    </ng-amap>
+    <div class="snippet" highlight>
+        <pre><code class="html">&lt;ng-amap key="your key" map-options="opts"&gt;
+    &lt;marker options="markerOpts" click="showWindow(e, marker, map)"&gt;&lt;/marker&gt;
+&lt;/ng-amap&gt;</code></pre>
+    </div>
+    <br/>
+    <div class="snippet" highlight>
+        <pre><code class="javascript">app.controller('demoCtrl', ['$scope',
+    function($scope) {
+        $scope.opts = {
+            center: [121.499981, 31.239226],
+            zoom: 15
+        };
+        
+        //below are for marker
+        $scope.markerOpts = {
+            position: [121.509413, 31.238912],
+            offset: {
+                x: 0,
+                y: -45
+            },
+            icon: {
+                image: 'https://raw.githubusercontent.com/leftstick/angular-amap/master/demo/img/markericon.png',
+                size: {
+                    width: 49,
+                    height: 60
+                }
+            }
+        };
+
+        $scope.showWindow = function(e, marker, map) {
+            new AMap.InfoWindow({
+                content: '新上海国际大厦&lt;br/&gt;地址：浦东南路360号',
+                offset: new AMap.Pixel(20, -20)
+            })
+            .open(map, marker.getPosition());
+        };
+    }
+]);</code></pre>
+    </div>
+    `,
+    controller: class {
+        /* @ngInject */
+        constructor() {
+            this.opts = {
+                center: [121.509413, 31.238912],
+                zoom: 17
+            };
+            this.markerOpts = {
+                position: [121.509413, 31.238912],
+                offset: {
+                    x: 0,
+                    y: -45
+                },
+                icon: {
+                    image: markericonUrl,
+                    size: {
+                        width: 49,
+                        height: 60
+                    }
+                }
+            };
+        }
+
+        showWindow(e, marker, map) {
+            new AMap.InfoWindow({
+                content: '新上海国际大厦<br/><br/>地址：浦东南路360号',
+                offset: new AMap.Pixel(20, -20)
+            })
+                .open(map, marker.getPosition());
+        }
+    }
+};

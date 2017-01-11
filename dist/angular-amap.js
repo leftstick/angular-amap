@@ -11,41 +11,41 @@
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
 /******/ 		if(installedModules[moduleId])
 /******/ 			return installedModules[moduleId].exports;
-
+/******/
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			exports: {},
 /******/ 			id: moduleId,
 /******/ 			loaded: false
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.loaded = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
 /******/ 	return __webpack_require__(0);
 /******/ })
@@ -55,94 +55,35 @@ return /******/ (function(modules) { // webpackBootstrap
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.ngAmap = undefined;
-
+	exports.ngAMap = undefined;
+	
 	var _angular = __webpack_require__(1);
-
+	
 	var _angular2 = _interopRequireDefault(_angular);
-
-	var _defaults = __webpack_require__(2);
-
-	var _validator = __webpack_require__(3);
-
-	var _directiveDef = __webpack_require__(4);
-
-	var _scriptLoader = __webpack_require__(5);
-
-	var _offline = __webpack_require__(6);
-
-	var _map = __webpack_require__(7);
-
+	
+	var _aMap = __webpack_require__(2);
+	
+	var _aMap2 = _interopRequireDefault(_aMap);
+	
+	var _marker = __webpack_require__(7);
+	
+	var _marker2 = _interopRequireDefault(_marker);
+	
+	var _control = __webpack_require__(8);
+	
+	var _control2 = _interopRequireDefault(_control);
+	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var ngAmap = exports.ngAmap = function () {
-	    var name = 'angular-amap';
-
-	    (0, _directiveDef.def)(name, 'ngAmap', {
-	        restrict: 'E',
-	        scope: {
-	            options: '=',
-	            ak: '@',
-	            offline: '=',
-	            onMapLoaded: '&'
-	        },
-	        link: function link($scope, element, attrs) {
-
-	            var opts = _angular2.default.extend({}, _defaults.defaultOpts, $scope.options);
-	            var offlineOpts = _angular2.default.extend({}, _defaults.defaultOfflineOpts, $scope.offline);
-	            $scope.offlineWords = offlineOpts.txt;
-	            (0, _validator.validator)($scope.ak, 'ak must not be empty');
-	            (0, _validator.validator)(opts.center, 'options.center must be set');
-	            (0, _validator.validator)(opts.center.longitude, 'options.center.longitude must be set');
-	            (0, _validator.validator)(opts.center.latitude, 'options.center.latitude must be set');
-	            (0, _validator.validator)(attrs.id, 'id cannot be ignored');
-
-	            (0, _scriptLoader.loader)($scope.ak, offlineOpts, function () {
-
-	                var map = (0, _map.createInstance)(opts, element[0]);
-
-	                $scope.onMapLoaded({ map: map });
-
-	                //create markers
-	                var previousMarkers = [];
-
-	                (0, _map.redrawMarkers)(map, previousMarkers, opts);
-
-	                $scope.$watch('options.center', function (newValue, oldValue) {
-
-	                    opts = $scope.options;
-	                    map.setZoomAndCenter(opts.zoom, new AMap.LngLat(opts.center.longitude, opts.center.latitude));
-	                    (0, _map.redrawMarkers)(map, previousMarkers, opts);
-	                }, true);
-
-	                $scope.$watch('options.markers', function (newValue, oldValue) {
-	                    (0, _map.redrawMarkers)(map, previousMarkers, opts);
-	                }, true);
-
-	                $scope.$watch('options.zoom', function (newValue, oldValue) {
-	                    map.setZoom(newValue);
-	                }, true);
-	            });
-
-	            $scope.divStyle = _offline.divStyle;
-	            $scope.labelStyle = _offline.labelStyle;
-
-	            setTimeout(function () {
-	                var $label = document.querySelector('ng-amap div label');
-	                $scope.labelStyle.marginTop = $label.clientHeight / -2 + 'px';
-	                $scope.labelStyle.marginLeft = $label.clientWidth / -2 + 'px';
-	                $scope.$apply();
-	            });
-	        },
-	        template: '<div ng-style="divStyle"><label ng-style="labelStyle">{{ offlineWords }}</label></div>'
-	    });
-
-	    return name;
-	}();
+	
+	var moduleName = 'angular-amap';
+	
+	_angular2.default.module(moduleName, []).component('ngAmap', _aMap2.default).component('marker', _marker2.default).component('control', _control2.default);
+	
+	var ngAMap = exports.ngAMap = moduleName;
 
 /***/ },
 /* 1 */
@@ -152,225 +93,434 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 2 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var defaultOpts = exports.defaultOpts = {
-	    toolBar: true,
-	    scaleCtrl: true,
-	    overviewCtrl: true,
-	    enableScrollWheelZoom: true,
-	    showIndoorMap: false,
-	    zoom: 10
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _style = __webpack_require__(3);
+	
+	var style = _interopRequireWildcard(_style);
+	
+	var _validate = __webpack_require__(4);
+	
+	var _loader = __webpack_require__(5);
+	
+	var _map = __webpack_require__(6);
+	
+	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	exports.default = {
+	    bindings: {
+	        key: '@',
+	        offlineTxt: '<',
+	        mapOptions: '<',
+	        loaded: '&',
+	        click: '&'
+	    },
+	    transclude: true,
+	    template: '\n        <div ng-style="$ctrl.style.map" class="amap-instance"></div>\n        <div ng-style="$ctrl.style.offline" class="amap-offline">\n            <label ng-style="$ctrl.style.offlineLabel">{{ $ctrl.offlineTxt || \'NO_NETWORK\' }}</label>\n        </div>\n        <div ng-transclude style="display: none"></div>\n    ',
+	    controller: function () {
+	        /* @ngInject */
+	        controller.$inject = ["$scope", "$element", "$attrs"];
+	        function controller($scope, $element, $attrs) {
+	            _classCallCheck(this, controller);
+	
+	            this.$scope = $scope;
+	            this.$element = $element;
+	            this.$attrs = $attrs;
+	            this.style = style;
+	        }
+	
+	        _createClass(controller, [{
+	            key: '$onInit',
+	            value: function $onInit() {
+	                var _this = this;
+	
+	                (0, _validate.nullCheck)(this.key, 'key is required for <ng-amap>');
+	
+	                this.mapReady = (0, _loader.load)(this.key).then(function () {
+	                    return (0, _map.create)(_this.$element.children()[0], _this.mapOptions);
+	                }).then(function (map) {
+	                    _this.loaded({
+	                        map: map
+	                    });
+	                    _this.$scope.$apply();
+	                    //eslint-disable-next-line
+	                    return _this.map = map;
+	                }).then(function () {
+	                    if (!_this.$attrs.click) {
+	                        return;
+	                    }
+	                    var clickListener = _this.clickListener = function (e) {
+	                        _this.click({
+	                            e: e
+	                        });
+	                    };
+	                    AMap.event.addListener(_this.map, 'click', clickListener);
+	                });
+	            }
+	        }, {
+	            key: '$onChanges',
+	            value: function $onChanges(changes) {
+	                if (!this.map) {
+	                    return;
+	                }
+	                (0, _map.refresh)(this.map, changes.mapOptions.currentValue);
+	            }
+	        }, {
+	            key: '$onDestroy',
+	            value: function $onDestroy() {
+	                AMap.event.removeListener(this.map, 'click', this.clickListener);
+	            }
+	        }, {
+	            key: 'getMap',
+	            value: function getMap() {
+	                return this.map;
+	            }
+	        }]);
+	
+	        return controller;
+	    }()
 	};
-
-	var defaultOfflineOpts = exports.defaultOfflineOpts = {
-	    retryInterval: 30000,
-	    txt: 'OFFLINE'
-	};
+	
+	
+	function handleMapOperation(map, method) {
+	    for (var _len = arguments.length, args = Array(_len > 2 ? _len - 2 : 0), _key = 2; _key < _len; _key++) {
+	        args[_key - 2] = arguments[_key];
+	    }
+	
+	    return new Promise(function (resolve) {
+	        map[method].apply(map, args);
+	        resolve();
+	    });
+	}
 
 /***/ },
 /* 3 */
 /***/ function(module, exports) {
 
-	"use strict";
-
+	'use strict';
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var validator = exports.validator = function validator(prop, desc) {
-	    if (!prop) {
-	        throw new Error(desc);
-	    }
+	var map = exports.map = {
+	    width: '100%',
+	    height: '100%',
+	    display: 'none'
+	};
+	
+	var offline = exports.offline = {
+	    width: '100%',
+	    height: '100%',
+	    backgroundColor: '#E6E6E6',
+	    position: 'relative',
+	    display: 'none'
+	};
+	
+	var offlineLabel = exports.offlineLabel = {
+	    fontSize: '30px',
+	    margin: 0,
+	    position: 'absolute',
+	    top: '50%',
+	    left: '50%',
+	    'margin-right': '-50%',
+	    transform: 'translate(-50%, -50%)'
 	};
 
 /***/ },
 /* 4 */
-/***/ function(module, exports, __webpack_require__) {
+/***/ function(module, exports) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	exports.def = undefined;
-
-	var _angular = __webpack_require__(1);
-
-	var _angular2 = _interopRequireDefault(_angular);
-
-	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-	var def = exports.def = function def(name, dirName, ddo) {
-	    _angular2.default.module(name, []).directive(dirName, [function () {
-	        return ddo;
-	    }]);
-	};
+	exports.nullCheck = nullCheck;
+	exports.numberCheck = numberCheck;
+	exports.isNull = isNull;
+	exports.isString = isString;
+	exports.isNumber = isNumber;
+	exports.isArray = isArray;
+	exports.controlTypeCheck = controlTypeCheck;
+	function nullCheck(val, msg) {
+	    if (isNull(val)) {
+	        throw new Error(msg);
+	    }
+	}
+	
+	function numberCheck(val, msg) {
+	    if (isNumber(val)) {
+	        throw new Error(msg);
+	    }
+	}
+	
+	function isNull(obj) {
+	    return obj === null || obj === undefined;
+	}
+	
+	function isString(obj) {
+	    return Object.prototype.toString.call(obj) === '[object String]';
+	}
+	
+	function isNumber(obj) {
+	    return Object.prototype.toString.call(obj) === '[object Number]';
+	}
+	
+	function isArray(obj) {
+	    return Object.prototype.toString.call(obj) === '[object Array]';
+	}
+	
+	var CONTROL_TYPS = ['maptype', 'overview', 'scale', 'toolbar'];
+	function controlTypeCheck(type) {
+	    if (CONTROL_TYPS.indexOf((type || '').toLowerCase()) < 0) {
+	        throw new Error('control type should be one of: [\'maptype\', \'overview\', \'scale\', \'toolbar\']');
+	    }
+	}
 
 /***/ },
 /* 5 */
 /***/ function(module, exports) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var loader = exports.loader = function loader(ak, offlineOpts, callback) {
-	    var MAP_URL = 'http://webapi.amap.com/maps?v=1.3&key=' + ak + '&callback=amapinit';
-
-	    var aMap = window.aMap;
-	    if (aMap && aMap.status === 'loading') {
-	        return aMap.callbacks.push(callback);
+	exports.load = load;
+	function load(key) {
+	    var MAP_URL = '//webapi.amap.com/maps?v=1.3&key=' + key + '&callback=amapinit';
+	
+	    var loadAMapPromise = window.loadAMapPromise;
+	    if (loadAMapPromise) {
+	        return loadAMapPromise.then(displayMap);
 	    }
-
-	    if (aMap && aMap.status === 'loaded') {
-	        return callback();
-	    }
-
-	    window.aMap = { status: 'loading', callbacks: [] };
-	    window.amapinit = function () {
-	        window.aMap.status = 'loaded';
-	        callback();
-	        window.aMap.callbacks.forEach(function (cb) {
-	            return cb();
+	
+	    //eslint-disable-next-line
+	    return window.loadAMapPromise = new Promise(function (resolve, reject) {
+	        window.amapinit = resolve;
+	        appendScriptTag(MAP_URL);
+	    }).then(displayMap);
+	}
+	
+	function appendScriptTag(url) {
+	    var script = document.createElement('script');
+	    script.type = 'text/javascript';
+	    script.src = url;
+	    script.onerror = function () {
+	
+	        Array.prototype.slice.call(document.querySelectorAll('ng-amap .amap-offline')).forEach(function (node) {
+	            node.style.display = 'block';
 	        });
-	        window.aMap.callbacks = [];
+	        document.body.removeChild(script);
+	
+	        setTimeout(function () {
+	            appendScriptTag(url);
+	        }, 30000);
 	    };
-
-	    var createTag = function createTag() {
-	        var script = document.createElement('script');
-	        script.type = 'text/javascript';
-	        script.src = MAP_URL;
-	        script.onerror = function () {
-
-	            Array.prototype.slice.call(document.querySelectorAll('ng-amap div')).forEach(function (node) {
-	                node.style.opacity = 1;
-	            });
-	            document.body.removeChild(script);
-	            setTimeout(createTag, offlineOpts.retryInterval);
-	        };
-	        document.body.appendChild(script);
-	    };
-
-	    createTag();
-	};
+	    document.body.appendChild(script);
+	}
+	
+	function displayMap() {
+	    return Array.prototype.slice.call(document.querySelectorAll('ng-amap')).forEach(function (node) {
+	        node.querySelector('.amap-offline') && node.removeChild(node.querySelector('.amap-offline'));
+	        node.querySelector('.amap-instance').style.display = 'block';
+	    });
+	}
 
 /***/ },
 /* 6 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var divStyle = exports.divStyle = {
-	    width: '100%',
-	    height: '100%',
-	    backgroundColor: '#E6E6E6',
-	    position: 'relative',
-	    opacity: 0
-	};
-
-	var labelStyle = exports.labelStyle = {
-	    fontSize: '30px',
-	    position: 'absolute',
-	    top: '50%',
-	    marginTop: 0,
-	    left: '50%',
-	    marginLeft: 0
-	};
+	exports.create = create;
+	exports.refresh = refresh;
+	
+	var _validate = __webpack_require__(4);
+	
+	function create(element, mapOptions) {
+	    return new AMap.Map(element, mapOptions);
+	}
+	
+	function refresh(map, mapOptions) {
+	    !(0, _validate.isNull)(mapOptions) && (0, _validate.isArray)(mapOptions.layers) && map.setLayers(mapOptions.layers);
+	    !(0, _validate.isNull)(mapOptions) && (0, _validate.isNumber)(mapOptions.zoom) && map.setZoom(mapOptions.zoom);
+	    !(0, _validate.isNull)(mapOptions) && !(0, _validate.isNull)(mapOptions.center) && map.setCenter(mapOptions.center);
+	    !(0, _validate.isNull)(mapOptions) && (0, _validate.isNumber)(mapOptions.labelzIndex) && map.setlabelzIndex(mapOptions.labelzIndex);
+	    !(0, _validate.isNull)(mapOptions) && (0, _validate.isString)(mapOptions.lang) && map.setLang(mapOptions.lang);
+	    !(0, _validate.isNull)(mapOptions) && (0, _validate.isString)(mapOptions.cursor) && map.setDefaultCursor(mapOptions.cursor);
+	    !(0, _validate.isNull)(mapOptions) && !(0, _validate.isNull)(mapOptions.defaultLayer) && map.setDefaultLayer(mapOptions.defaultLayer);
+	    !(0, _validate.isNull)(mapOptions) && !(0, _validate.isNull)(mapOptions.city) && map.setCity(mapOptions.city);
+	}
 
 /***/ },
 /* 7 */
-/***/ function(module, exports) {
+/***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
-
+	
 	Object.defineProperty(exports, "__esModule", {
 	    value: true
 	});
-	var createInstance = exports.createInstance = function createInstance(opts, element) {
-	    // create map instance
-	    var map = new AMap.Map(element.id, {
-	        scrollWheel: opts.enableScrollWheelZoom,
-	        showIndoorMap: opts.showIndoorMap
-	    });
-
-	    // init map, set central location and zoom level
-	    map.setZoomAndCenter(opts.zoom, new AMap.LngLat(opts.center.longitude, opts.center.latitude));
-	    if (opts.toolBar) {
-	        // add navigation control
-	        map.plugin(['AMap.ToolBar'], function () {
-	            map.addControl(new AMap.ToolBar());
-	        });
-	    }
-	    if (opts.scaleCtrl) {
-	        // add scale control
-	        map.plugin(['AMap.Scale'], function () {
-	            map.addControl(new AMap.Scale());
-	        });
-	    }
-	    if (opts.overviewCtrl) {
-	        //add overview map control
-	        map.plugin(['AMap.OverView'], function () {
-	            map.addControl(new AMap.OverView());
-	        });
-	    }
-	    return map;
-	};
-
-	var createMarker = exports.createMarker = function createMarker(marker, pt) {
-	    return new AMap.Marker({ icon: marker.icon, position: pt });
-	};
-
-	var redrawMarkers = exports.redrawMarkers = function redrawMarkers(map, previousMarkers, opts) {
-
-	    previousMarkers.forEach(function (_ref) {
-	        var marker = _ref.marker;
-	        var listener = _ref.listener;
-
-	        AMap.event.removeListener(listener);
-	        marker.setMap(null);
-	    });
-
-	    previousMarkers.length = 0;
-
-	    if (!opts.markers) {
-	        return;
-	    }
-
-	    opts.markers.forEach(function (marker) {
-
-	        var marker2 = createMarker(marker, new AMap.LngLat(marker.longitude, marker.latitude));
-
-	        // add marker to the map
-	        marker2.setMap(map);
-	        var previousMarker = { marker: marker2, listener: null };
-	        previousMarkers.push(previousMarker);
-
-	        if (!marker.title && !marker.content) {
-	            return;
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _validate = __webpack_require__(4);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	exports.default = {
+	    bindings: {
+	        options: '<',
+	        click: '&'
+	    },
+	    require: {
+	        mapCtrl: '^ngAmap'
+	    },
+	    template: '',
+	    controller: function () {
+	        /* @ngInject */
+	        controller.$inject = ["$scope", "$attrs"];
+	        function controller($scope, $attrs) {
+	            _classCallCheck(this, controller);
+	
+	            this.$scope = $scope;
+	            this.$attrs = $attrs;
 	        }
-	        var msg = '<p>' + marker.title + '</p><p>' + marker.content + '</p>';
-	        var infoWindow2 = new AMap.InfoWindow({
-	            isCustom: false,
-	            autoMove: true,
-	            content: msg
-	        });
-	        if (marker.width && marker.height) {
-	            infoWindow2.setSize(new AMap.Size(marker.width, marker.height));
-	        }
-	        previousMarker.listener = AMap.event.addListener(marker2, 'click', function (e) {
-	            infoWindow2.open(map, marker2.getPosition());
-	        });
-	    });
+	
+	        _createClass(controller, [{
+	            key: '$onInit',
+	            value: function $onInit() {
+	                var _this = this;
+	
+	                (0, _validate.nullCheck)(this.options, 'options is required for <marker>');
+	                (0, _validate.nullCheck)(this.options.position, 'options.position is required for <marker>');
+	
+	                this.mapCtrl.mapReady.then(function () {
+	                    var marker = _this.marker = new AMap.Marker(_this.options);
+	                    marker.setMap(_this.mapCtrl.getMap());
+	                    return marker;
+	                }).then(function (marker) {
+	                    if (!_this.$attrs.click) {
+	                        return;
+	                    }
+	                    _this.clickHandler = function (e) {
+	                        _this.click({
+	                            e: e,
+	                            marker: marker,
+	                            map: _this.mapCtrl.getMap()
+	                        });
+	                        _this.$scope.$apply();
+	                    };
+	                    AMap.event.addListener(marker, 'click', _this.clickHandler);
+	                });
+	            }
+	        }, {
+	            key: '$onDestroy',
+	            value: function $onDestroy() {
+	                AMap.event.removeListener(this.marker, 'click', this.clickHandler);
+	                this.marker.setMap(null);
+	            }
+	        }]);
+	
+	        return controller;
+	    }()
 	};
+
+/***/ },
+/* 8 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+	
+	var _validate = __webpack_require__(4);
+	
+	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+	
+	exports.default = {
+	    bindings: {
+	        type: '@',
+	        options: '<'
+	    },
+	    require: {
+	        mapCtrl: '^ngAmap'
+	    },
+	    template: '',
+	    controller: function () {
+	        /* @ngInject */
+	        function controller() {
+	            _classCallCheck(this, controller);
+	        }
+	
+	        _createClass(controller, [{
+	            key: '$onInit',
+	            value: function $onInit() {
+	                var _this = this;
+	
+	                (0, _validate.controlTypeCheck)(this.type);
+	
+	                this.mapCtrl.mapReady.then(function () {
+	                    return createControl(_this.mapCtrl.getMap(), _this.type.toLowerCase(), _this.options);
+	                }).then(function (control) {
+	                    _this.control = control;
+	                    _this.mapCtrl.getMap().addControl(control);
+	                });
+	            }
+	        }, {
+	            key: '$onDestroy',
+	            value: function $onDestroy() {
+	                this.mapCtrl.getMap().removeControl(this.control);
+	            }
+	        }]);
+	
+	        return controller;
+	    }()
+	};
+	
+	
+	function createControl(map, type, options) {
+	    return new Promise(function (resolve, reject) {
+	        if (type === 'maptype') {
+	            return map.plugin(['AMap.MapType'], function () {
+	                resolve(new AMap.MapType(options));
+	            });
+	        }
+	        if (type === 'overview') {
+	            return map.plugin(['AMap.OverView'], function () {
+	                resolve(new AMap.OverView(options));
+	            });
+	        }
+	        if (type === 'scale') {
+	            return map.plugin(['AMap.Scale'], function () {
+	                resolve(new AMap.Scale(options));
+	            });
+	        }
+	        if (type === 'toolbar') {
+	            return map.plugin(['AMap.ToolBar'], function () {
+	                resolve(new AMap.ToolBar(options));
+	            });
+	        }
+	    });
+	}
 
 /***/ }
 /******/ ])

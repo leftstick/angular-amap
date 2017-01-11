@@ -1,0 +1,25 @@
+$width: 800px;
+$s-width: 100%;
+
+home {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+home ng-amap {
+    width: $width;
+    height: 290px;
+}
+
+.home-desc {
+    width: $width;
+}
+
+@media screen and (max-width: 800px) {
+    home ng-amap,
+    .home-desc {
+        width: $s-width;
+    }
+}

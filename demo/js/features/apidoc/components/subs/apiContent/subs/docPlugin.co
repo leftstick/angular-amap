@@ -1,0 +1,91 @@
+export default {
+    template: `
+    <p>
+        The <code>plugin</code> component is sub-component of <code>ng-amap</code>. It is used to add <code>地图插件</code> to the map. For example: <a href="http://lbs.amap.com/api/javascript-api/reference/map-control/" target="_blank">控件</a>, <a href="http://lbs.amap.com/api/javascript-api/reference/location/" target="_blank">定位</a>
+    </p>
+    <h2 class="title">Usage</h2>
+    <div class="snippet" highlight>
+        <pre><code class="html">&lt;ng-amap key="{string}" map-options="{expression}"&gt;
+    &lt;plugin name="{string}" options="{expression}""&gt;&lt;/plugin&gt;    
+&lt;/ng-amap&gt;</code></pre>
+    </div>
+    <h2 class="title">Attributes</h2>
+    <blockquote>Required properties are in red</blockquote>
+    <table class="matrix">
+        <thead>
+            <tr>
+                <th style="width: 80px;">Param</th>
+                <th>Type</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>name</td>
+                <td><span class="label required">string</span></td>
+                <td><p class="line-text">What kind of plugin to be added to the map. Available options see: <a href="http://lbs.amap.com/api/javascript-api/reference/core/" target="_blank">Documentation</a>. For example: <code>MapType</code></p></td>
+            </tr>
+            <tr>
+                <td>options</td>
+                <td><span class="label">expression</span></td>
+                <td>
+                <p class="line-text">Literal for constructing <code>control</code>. See <a href="http://lbs.amap.com/api/javascript-api/reference/map-control/#m_MaptypeOptions" target="_blank">MapTypeOptions</a>, <a href="http://lbs.amap.com/api/javascript-api/reference/map-control/#m_OverViewOptions" target="_blank">OverviewOptions</a>, <a href="http://lbs.amap.com/api/javascript-api/reference/map-control/#m_ToolbarOptions" target="_blank">ToolBarOptions</a></p>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <h2 class="title">Example</h2>
+    <ng-amap key="53deb06fba327390438a6dae38686827" map-options="$ctrl.opts" loaded="$ctrl.mapLoaded(map)">
+        <plugin name="MapType" options="$ctrl.mapTypeOpts"></plugin>
+        <plugin name="OverView" options="$ctrl.overOpts"></plugin>
+        <plugin name="Geolocation" options="$ctrl.geoOpts"></plugin>
+    </ng-amap>
+    <div class="snippet" highlight>
+        <pre><code class="html">&lt;ng-amap key="your key" map-options="opts"&gt;
+    &lt;plugin name="MapType" options="mapTypeOpts"&gt;&lt;/plugin&gt;
+    &lt;plugin name="OverView" options="overOpts"&gt;&lt;/plugin&gt;
+    &lt;plugin name="Geolocation" options="geoOpts"&gt;&lt;/plugin&gt;
+&lt;/ng-amap&gt;</code></pre>
+    </div>
+    <br/>
+    <div class="snippet" highlight>
+        <pre><code class="javascript">app.controller('demoCtrl', ['$scope',
+    function($scope) {
+        $scope.opts = {
+            center: [121.499981, 31.239226],
+            zoom: 16
+        };
+
+        //below are for plugins
+        $scope.mapTypeOpts = {
+            defaultType: 0
+        };
+        $scope.overOpts = {
+            isOpen: true
+        };
+        $scope.geoOpts = {
+            buttonPosition: 'LB'
+        };
+    }
+]);</code></pre>
+    </div>
+    `,
+    controller: class {
+        /* @ngInject */
+        constructor() {
+            this.opts = {
+                center: [121.499981, 31.239226],
+                zoom: 16
+            };
+            this.mapTypeOpts = {
+                defaultType: 0
+            };
+            this.overOpts = {
+                isOpen: true
+            };
+            this.geoOpts = {
+                buttonPosition: 'LB'
+            };
+        }
+    }
+};
