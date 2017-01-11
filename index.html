@@ -1,41 +1,26 @@
 <!DOCTYPE html>
-<html lang="en" ng-app="demo">
+<html lang="en">
 
 <head>
     <meta charset="UTF-8">
-    <title>高德地图指令</title>
+    <title>angular-amap</title>
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimal-ui" />
+    <meta http-equiv="X-UA-Compatible" content="IE=Edge" />
+    <style media="screen">
+        * {box-sizing: border-box;padding: 0;margin: 0;}
+        html, body{width: 100%;min-height: 100%; display: flex;}
+        #application {width: 100%;display: flex;}
+    </style>
+
+    <style id="splash-spinner">
+        .spinner {position: fixed;border: 4px solid #f3f3f3;border-top: 4px solid #3498db;border-radius: 50%;top: 40%;left: 50%;margin-left: -22.5px;width: 45px;height: 45px;animation: spin 1s linear infinite;}
+        @keyframes spin {0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); }}
+    </style>
 <link rel="shortcut icon" href="/angular-amap/favicon.ico"></head>
 
-<body ng-controller="demoCtrl">
-    <div id="logo-wrap">
-          <img id="logo" src="/angular-amap/315d67a3ae92d17406ee45ac8c74899c.png">
-          <h1>angular-amap</h1>
-    </div>
+<body>
+    <demo></demo>
+    <div class="spinner"></div>
+<script type="text/javascript" src="/angular-amap/common.bundle.js"></script><script type="text/javascript" src="/angular-amap/index.bundle.js"></script></body>
 
-    <p id="desc">
-        A damn easy directive for 高德地图, and it's totally re-write in `ES2015`, including API updates and offline friendly<br/><br/>
-        Very welcome to give me feedbacks! <br/><br/>
-        Stars would be the best^^!!
-    </p>
-
-    <div id="github">
-        <iframe src="http://ghbtns.com/github-btn.html?user=leftstick&repo=angular-amap&type=star&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
-        <iframe src="http://ghbtns.com/github-btn.html?user=leftstick&repo=angular-amap&type=fork&count=true" allowtransparency="true" frameborder="0" scrolling="0" width="100" height="20"></iframe>
-    </div>
-
-    <div id="todo-app">
-        <ng-amap id="amap" options="mapOptions" offline="offline" on-map-loaded="loadMap(map)" ak="53deb06fba327390438a6dae38686827" style="display: block; width: 500px; height: 400px;"></ng-amap>
-
-        <div class="controls">
-            <button ng-click="toggleCoordinate()">Coordinate</button>
-            <button ng-click="toggleMarker()">Marker</button>
-            <button ng-click="randomScale()">Scale</button>
-        </div>
-    </div>
-
-    <div id="footer">
-        <p>Released under the <a href="http://opensource.org/licenses/MIT" target="_blank">MIT License</a></p>
-        <p>Copyright (c) 2016 <a href="https://github.com/leftstick" target="_blank">Howard.Zuo</a></p>
-    </div>
-<script type="text/javascript" src="/angular-amap/app.ba5461771946d2c363fc.bundle.js"></script></body>
 </html>
