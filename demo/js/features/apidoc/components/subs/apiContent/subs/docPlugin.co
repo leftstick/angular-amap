@@ -5,7 +5,7 @@ export default {
     </p>
     <h2 class="title">Usage</h2>
     <div class="snippet" highlight>
-        <pre><code class="html">&lt;ng-amap key="{string}" map-options="{expression}"&gt;
+        <pre><code class="html">&lt;ng-amap map-options="{expression}"&gt;
     &lt;plugin name="{string}" options="{expression}""&gt;&lt;/plugin&gt;    
 &lt;/ng-amap&gt;</code></pre>
     </div>
@@ -35,13 +35,13 @@ export default {
         </tbody>
     </table>
     <h2 class="title">Example</h2>
-    <ng-amap key="53deb06fba327390438a6dae38686827" map-options="$ctrl.opts" loaded="$ctrl.mapLoaded(map)">
+    <ng-amap map-options="$ctrl.opts" loaded="$ctrl.mapLoaded(map)">
         <plugin name="MapType" options="$ctrl.mapTypeOpts"></plugin>
         <plugin name="OverView" options="$ctrl.overOpts"></plugin>
         <plugin name="Geolocation" options="$ctrl.geoOpts"></plugin>
     </ng-amap>
     <div class="snippet" highlight>
-        <pre><code class="html">&lt;ng-amap key="your key" map-options="opts"&gt;
+        <pre><code class="html">&lt;ng-amap map-options="opts"&gt;
     &lt;plugin name="MapType" options="mapTypeOpts"&gt;&lt;/plugin&gt;
     &lt;plugin name="OverView" options="overOpts"&gt;&lt;/plugin&gt;
     &lt;plugin name="Geolocation" options="geoOpts"&gt;&lt;/plugin&gt;

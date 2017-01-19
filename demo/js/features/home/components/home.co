@@ -6,7 +6,7 @@ export default {
     template: `
     <h1 class="page-title">angular-amap</h1>
 
-    <ng-amap key="53deb06fba327390438a6dae38686827" map-options="$ctrl.opts" click="$ctrl.onMapClicked(e)">
+    <ng-amap map-options="$ctrl.opts" click="$ctrl.onMapClicked(e)">
         <marker options="$ctrl.markerOpts" click="$ctrl.onMarkerClicked(e, marker)"></marker>
         <plugin name="MapType"></plugin>
         <plugin name="OverView"></plugin>

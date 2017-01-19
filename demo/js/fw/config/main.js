@@ -1,3 +1,4 @@
+import map from './mapConfig';
 import router from './routerConfig';
 
-export default [router];
+export default [map, router];

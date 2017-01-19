@@ -12,7 +12,7 @@ export default {
     </p>
     <h2 class="title">Usage</h2>
     <div class="snippet" highlight>
-        <pre><code class="html">&lt;ng-amap keyk="{string}" map-options="{expression}"&gt;
+        <pre><code class="html">&lt;ng-amap map-options="{expression}"&gt;
     &lt;marker options="{expression}" click="{expression}"&gt;&lt;marker&gt;    
 &lt;/ng-amap&gt;</code></pre>
     </div>
@@ -42,11 +42,11 @@ export default {
         </tbody>
     </table>
     <h2 class="title">Example</h2>
-    <ng-amap key="53deb06fba327390438a6dae38686827" map-options="$ctrl.opts">
+    <ng-amap map-options="$ctrl.opts">
         <marker options="$ctrl.markerOpts" click="$ctrl.showWindow(e, marker, map)"></marker>
     </ng-amap>
     <div class="snippet" highlight>
-        <pre><code class="html">&lt;ng-amap key="your key" map-options="opts"&gt;
+        <pre><code class="html">&lt;ng-amap map-options="opts"&gt;
     &lt;marker options="markerOpts" click="showWindow(e, marker, map)"&gt;&lt;/marker&gt;
 &lt;/ng-amap&gt;</code></pre>
     </div>

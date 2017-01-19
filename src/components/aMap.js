@@ -1,12 +1,10 @@
 
 import * as style from '../style';
 import {nullCheck} from '../helper/validate';
-import {load} from '../helper/loader';
 import {create, refresh} from '../helper/map';
 
 export default {
     bindings: {
-        key: '@',
         offlineTxt: '<',
         mapOptions: '<',
         loaded: '&',
@@ -22,19 +20,19 @@ export default {
     `,
     controller: class {
         /* @ngInject */
-        constructor($scope, $element, $attrs) {
+        constructor($scope, $element, $attrs, mapScriptService) {
             this.$scope = $scope;
             this.$element = $element;
             this.$attrs = $attrs;
             this.style = style;
+            this.mapScriptService = mapScriptService;
         }
 
         $onInit() {
-            nullCheck(this.key, 'key is required for <ng-amap>');
             nullCheck(this.mapOptions, 'mapOptions is required for <ng-amap>');
             nullCheck(this.mapOptions.center, 'mapOptions.center is required for <ng-amap>');
 
-            this.mapReady = load(this.key)
+            this.mapReady = this.mapScriptService.load()
                 .then(() => {
                     return create(this.$element.children()[0], this.mapOptions);
                 })

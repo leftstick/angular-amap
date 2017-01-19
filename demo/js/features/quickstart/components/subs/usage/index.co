@@ -12,9 +12,19 @@ export default {
             </li>
             <li>
                 <div>
+                    <div class="type-name">Config <code>&lt;ng-amap&gt;</code> with <code>key</code>:</div>
+                    <div class="snippet">
+                        <pre><code class="javascript">app.config(['mapScriptServiceProvider', function(provider) {
+    provider.setKey('your key');
+}]);</code></pre>
+                    </div>
+                </div>
+            </li>
+            <li>
+                <div>
                     <div class="type-name">Add <code>&lt;ng-amap&gt;</code> element in template:</div>
                     <div class="snippet">
-                        <pre><code class="html">&lt;ng-amap key="{your key}" map-options="opts"&gt;&lt;/ng-amap&gt;</code></pre>
+                        <pre><code class="html">&lt;ng-amap map-options="opts"&gt;&lt;/ng-amap&gt;</code></pre>
                     </div>
                 </div>
             </li>

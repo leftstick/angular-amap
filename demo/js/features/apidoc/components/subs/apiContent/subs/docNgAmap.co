@@ -7,7 +7,6 @@ export default {
     <h2 class="title">Usage</h2>
     <div class="snippet" highlight>
         <pre><code class="html">&lt;ng-amap 
-        key="{string}" 
         map-options="{expression}"
         offline-txt="{expression}"
         loaded="{expression}"
@@ -54,9 +53,9 @@ export default {
         </tbody>
     </table>
     <h2 class="title">Example</h2>
-    <ng-amap key="53deb06fba327390438a6dae38686827" map-options="$ctrl.opts" click="$ctrl.onClick(e)"></ng-amap>
+    <ng-amap map-options="$ctrl.opts" click="$ctrl.onClick(e)"></ng-amap>
     <div class="snippet" highlight>
-        <pre><code class="html">&lt;ng-amap key="your key" map-options="opts" click="getCoord(e)"&gt;&lt;/ng-amap&gt;</code></pre>
+        <pre><code class="html">&lt;ng-amap map-options="opts" click="getCoord(e)"&gt;&lt;/ng-amap&gt;</code></pre>
     </div>
     <br/>
     <div class="snippet" highlight>
