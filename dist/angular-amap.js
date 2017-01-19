@@ -69,19 +69,23 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _aMap2 = _interopRequireDefault(_aMap);
 	
-	var _marker = __webpack_require__(8);
+	var _marker = __webpack_require__(7);
 	
 	var _marker2 = _interopRequireDefault(_marker);
 	
-	var _plugin = __webpack_require__(9);
+	var _plugin = __webpack_require__(8);
 	
 	var _plugin2 = _interopRequireDefault(_plugin);
+	
+	var _mapScript = __webpack_require__(9);
+	
+	var _mapScript2 = _interopRequireDefault(_mapScript);
 	
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 	
 	var moduleName = 'angular-amap';
 	
-	_angular2.default.module(moduleName, []).component('ngAmap', _aMap2.default).component('marker', _marker2.default).component('plugin', _plugin2.default);
+	_angular2.default.module(moduleName, []).provider('mapScriptService', _mapScript2.default).component('ngAmap', _aMap2.default).component('marker', _marker2.default).component('plugin', _plugin2.default);
 	
 	var ngAMap = exports.ngAMap = moduleName;
 
@@ -109,9 +113,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _validate = __webpack_require__(4);
 	
-	var _loader = __webpack_require__(5);
-	
-	var _map = __webpack_require__(6);
+	var _map = __webpack_require__(5);
 	
 	function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
 	
@@ -119,7 +121,6 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	exports.default = {
 	    bindings: {
-	        key: '@',
 	        offlineTxt: '<',
 	        mapOptions: '<',
 	        loaded: '&',
@@ -129,14 +130,15 @@ return /******/ (function(modules) { // webpackBootstrap
 	    template: '\n        <div ng-style="$ctrl.style.map" class="amap-instance"></div>\n        <div ng-style="$ctrl.style.offline" class="amap-offline">\n            <label ng-style="$ctrl.style.offlineLabel">{{ $ctrl.offlineTxt || \'NO_NETWORK\' }}</label>\n        </div>\n        <div ng-transclude style="display: none"></div>\n    ',
 	    controller: function () {
 	        /* @ngInject */
-	        controller.$inject = ["$scope", "$element", "$attrs"];
-	        function controller($scope, $element, $attrs) {
+	        controller.$inject = ["$scope", "$element", "$attrs", "mapScriptService"];
+	        function controller($scope, $element, $attrs, mapScriptService) {
 	            _classCallCheck(this, controller);
 	
 	            this.$scope = $scope;
 	            this.$element = $element;
 	            this.$attrs = $attrs;
 	            this.style = style;
+	            this.mapScriptService = mapScriptService;
 	        }
 	
 	        _createClass(controller, [{
@@ -144,11 +146,10 @@ return /******/ (function(modules) { // webpackBootstrap
 	            value: function $onInit() {
 	                var _this = this;
 	
-	                (0, _validate.nullCheck)(this.key, 'key is required for <ng-amap>');
 	                (0, _validate.nullCheck)(this.mapOptions, 'mapOptions is required for <ng-amap>');
 	                (0, _validate.nullCheck)(this.mapOptions.center, 'mapOptions.center is required for <ng-amap>');
 	
-	                this.mapReady = (0, _loader.load)(this.key).then(function () {
+	                this.mapReady = this.mapScriptService.load().then(function () {
 	                    return (0, _map.create)(_this.$element.children()[0], _this.mapOptions);
 	                }).then(function (map) {
 	                    _this.loaded({
@@ -280,56 +281,6 @@ return /******/ (function(modules) { // webpackBootstrap
 
 /***/ },
 /* 5 */
-/***/ function(module, exports) {
-
-	'use strict';
-	
-	Object.defineProperty(exports, "__esModule", {
-	    value: true
-	});
-	exports.load = load;
-	function load(key) {
-	    var MAP_URL = '//webapi.amap.com/maps?v=1.3&key=' + key + '&callback=amapinit';
-	
-	    var loadAMapPromise = window.loadAMapPromise;
-	    if (loadAMapPromise) {
-	        return loadAMapPromise.then(displayMap);
-	    }
-	
-	    //eslint-disable-next-line
-	    return window.loadAMapPromise = new Promise(function (resolve, reject) {
-	        window.amapinit = resolve;
-	        appendScriptTag(MAP_URL);
-	    }).then(displayMap);
-	}
-	
-	function appendScriptTag(url) {
-	    var script = document.createElement('script');
-	    script.type = 'text/javascript';
-	    script.src = url;
-	    script.onerror = function () {
-	
-	        Array.prototype.slice.call(document.querySelectorAll('ng-amap .amap-offline')).forEach(function (node) {
-	            node.style.display = 'block';
-	        });
-	        document.body.removeChild(script);
-	
-	        setTimeout(function () {
-	            appendScriptTag(url);
-	        }, 30000);
-	    };
-	    document.body.appendChild(script);
-	}
-	
-	function displayMap() {
-	    return Array.prototype.slice.call(document.querySelectorAll('ng-amap')).forEach(function (node) {
-	        node.querySelector('.amap-offline') && node.removeChild(node.querySelector('.amap-offline'));
-	        node.querySelector('.amap-instance').style.display = 'block';
-	    });
-	}
-
-/***/ },
-/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -342,7 +293,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _validate = __webpack_require__(4);
 	
-	var _transformer = __webpack_require__(7);
+	var _transformer = __webpack_require__(6);
 	
 	function create(element, mapOptions) {
 	    return new AMap.Map(element, transformOptions(mapOptions));
@@ -375,7 +326,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 7 */
+/* 6 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -480,7 +431,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	}
 
 /***/ },
-/* 8 */
+/* 7 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -493,7 +444,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _validate = __webpack_require__(4);
 	
-	var _transformer = __webpack_require__(7);
+	var _transformer = __webpack_require__(6);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -556,7 +507,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	};
 
 /***/ },
-/* 9 */
+/* 8 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -569,7 +520,7 @@ return /******/ (function(modules) { // webpackBootstrap
 	
 	var _validate = __webpack_require__(4);
 	
-	var _transformer = __webpack_require__(7);
+	var _transformer = __webpack_require__(6);
 	
 	function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 	
@@ -632,6 +583,75 @@ return /******/ (function(modules) { // webpackBootstrap
 	        opts.locationMarker.setMap(map);
 	    }
 	    return opts;
+	}
+
+/***/ },
+/* 9 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+	
+	Object.defineProperty(exports, "__esModule", {
+	    value: true
+	});
+	
+	exports.default = function () {
+	    var ak = null,
+	        MAP_URL = void 0;
+	
+	    this.setKey = function (val) {
+	        ak = val;
+	        MAP_URL = '//webapi.amap.com/maps?v=1.3&key=' + val + '&callback=amapinit';
+	    };
+	
+	    this.$get = ["$rootScope", function ($rootScope) {
+	        'ngInject';
+	
+	        return {
+	            load: function load() {
+	
+	                (0, _validate.nullCheck)(ak, 'ak should be set before use. Read: https://leftstick.github.io/angular-amap/#!/quickstart');
+	
+	                var loadAMapPromise = $rootScope.loadAMapPromise;
+	                if (loadAMapPromise) {
+	                    return loadAMapPromise.then(displayMap);
+	                }
+	
+	                //eslint-disable-next-line
+	                return $rootScope.loadAMapPromise = new Promise(function (resolve, reject) {
+	                    window.amapinit = resolve;
+	                    appendScriptTag(MAP_URL);
+	                }).then(displayMap);
+	            }
+	        };
+	    }];
+	};
+	
+	var _validate = __webpack_require__(4);
+	
+	function appendScriptTag(url) {
+	    var script = document.createElement('script');
+	    script.type = 'text/javascript';
+	    script.src = url;
+	    script.onerror = function () {
+	
+	        Array.prototype.slice.call(document.querySelectorAll('ng-amap .amap-offline')).forEach(function (node) {
+	            node.style.display = 'block';
+	        });
+	        document.body.removeChild(script);
+	
+	        setTimeout(function () {
+	            appendScriptTag(url);
+	        }, 30000);
+	    };
+	    document.body.appendChild(script);
+	}
+	
+	function displayMap() {
+	    return Array.prototype.slice.call(document.querySelectorAll('ng-amap')).forEach(function (node) {
+	        node.querySelector('.amap-offline') && node.removeChild(node.querySelector('.amap-offline'));
+	        node.querySelector('.amap-instance').style.display = 'block';
+	    });
 	}
 
 /***/ }
