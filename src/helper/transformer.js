@@ -86,3 +86,8 @@ export function marker(obj, field) {
     }
     return new AMap.Marker(opts);
 }
+
+export function tileLayer(obj, field) {
+    const opts = JSON.parse(JSON.stringify(obj));
+    return new AMap.TileLayer(opts);
+}
