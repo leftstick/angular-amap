@@ -17,14 +17,13 @@ module.exports = {
             {
                 test: /\.(js|co)$/,
                 use: [
-                    'ng-annotate-loader',
                     {
                         loader: 'babel-loader',
                         options: {
                             presets: [['es2015', {
                                 modules: false
                             }]],
-                            plugins: ['transform-object-rest-spread']
+                            plugins: ['transform-object-rest-spread', 'angularjs-annotate']
                         }
                     }
                 ],

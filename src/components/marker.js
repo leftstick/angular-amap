@@ -1,9 +1,10 @@
 import {nullCheck} from '../helper/validate';
-import {lngLat, pixel, icon, marker as markerTransform} from '../helper/transformer';
+import {marker as markerTransform} from '../helper/transformer';
 
 export default {
     bindings: {
         options: '<',
+        loaded: '&',
         click: '&'
     },
     require: {
@@ -26,6 +27,10 @@ export default {
                 .then(() => {
                     const marker = this.marker = markerTransform(this.options, 'options');
                     marker.setMap(this.mapCtrl.getMap());
+                    this.loaded({
+                        marker
+                    });
+                    this.$scope.$apply();
                     return marker;
                 })
                 .then(marker => {

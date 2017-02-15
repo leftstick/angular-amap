@@ -6,7 +6,7 @@ export default {
     <h2 class="title">Usage</h2>
     <div class="snippet" highlight>
         <pre><code class="html">&lt;ng-amap map-options="{expression}"&gt;
-    &lt;plugin name="{string}" options="{expression}""&gt;&lt;/plugin&gt;    
+    &lt;plugin name="{string}" options="{expression}" loaded="{expression}"&gt;&lt;/plugin&gt;    
 &lt;/ng-amap&gt;</code></pre>
     </div>
     <h2 class="title">Attributes</h2>
@@ -32,19 +32,24 @@ export default {
                 <p class="line-text">Literal for constructing <code>control</code>. See <a href="http://lbs.amap.com/api/javascript-api/reference/map-control/#m_MaptypeOptions" target="_blank">MapTypeOptions</a>, <a href="http://lbs.amap.com/api/javascript-api/reference/map-control/#m_OverViewOptions" target="_blank">OverviewOptions</a>, <a href="http://lbs.amap.com/api/javascript-api/reference/map-control/#m_ToolbarOptions" target="_blank">ToolBarOptions</a></p>
                 </td>
             </tr>
+            <tr>
+                <td>loaded</td>
+                <td><span class="label">expression</span></td>
+                <td>Expression to evaluate upon plugin instance loaded event. (Event object is available as <a href="http://lbs.amap.com/api/javascript-api/reference/map-control" target="_blank">plugin</a> instance)</td>
+            </tr>
         </tbody>
     </table>
     <h2 class="title">Example</h2>
     <ng-amap map-options="$ctrl.opts" loaded="$ctrl.mapLoaded(map)">
         <plugin name="MapType" options="$ctrl.mapTypeOpts"></plugin>
         <plugin name="OverView" options="$ctrl.overOpts"></plugin>
-        <plugin name="Geolocation" options="$ctrl.geoOpts"></plugin>
+        <plugin name="Geolocation" options="$ctrl.geoOpts" loaded="$ctrl.geoPluginLoaded(plugin)"></plugin>
     </ng-amap>
     <div class="snippet" highlight>
         <pre><code class="html">&lt;ng-amap map-options="opts"&gt;
     &lt;plugin name="MapType" options="mapTypeOpts"&gt;&lt;/plugin&gt;
     &lt;plugin name="OverView" options="overOpts"&gt;&lt;/plugin&gt;
-    &lt;plugin name="Geolocation" options="geoOpts"&gt;&lt;/plugin&gt;
+    &lt;plugin name="Geolocation" options="geoOpts" loaded="geoPluginLoaded(plugin)"&gt;&lt;/plugin&gt;
 &lt;/ng-amap&gt;</code></pre>
     </div>
     <br/>
@@ -66,6 +71,13 @@ export default {
         $scope.geoOpts = {
             buttonPosition: 'LB'
         };
+
+        //retrieve Geolocation plugin instance
+        $scope.geoPluginLoaded = function(plugin) {
+            plugin.getCurrentPosition(function (status, result) {
+                console.log('current location is :', result);
+            });
+        };
     }
 ]);</code></pre>
     </div>
@@ -86,6 +98,12 @@ export default {
             this.geoOpts = {
                 buttonPosition: 'LB'
             };
+        }
+
+        geoPluginLoaded(plugin) {
+            plugin.getCurrentPosition((status, result) => {
+                console.log('current location is :', result.position);
+            });
         }
     }
 };

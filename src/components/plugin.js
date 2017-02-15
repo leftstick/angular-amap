@@ -4,7 +4,8 @@ import {marker, pixel} from '../helper/transformer';
 export default {
     bindings: {
         name: '@',
-        options: '<'
+        options: '<',
+        loaded: '&'
     },
     require: {
         mapCtrl: '^ngAmap'
@@ -12,7 +13,9 @@ export default {
     template: '',
     controller: class {
         /* @ngInject */
-        constructor() {}
+        constructor($scope) {
+            this.$scope = $scope;
+        }
 
         $onInit() {
             isNull(this.name);
@@ -22,6 +25,10 @@ export default {
                 .then(() => createControl(this.mapCtrl.getMap(), this.name, transformOptions(this.mapCtrl.getMap(), this.options || {})))
                 .then(control => {
                     this.control = control;
+                    this.loaded({
+                        plugin: control
+                    });
+                    this.$scope.$apply();
                     this.mapCtrl.getMap().addControl(control);
                 });
         }

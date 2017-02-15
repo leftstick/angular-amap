@@ -13,7 +13,7 @@ export default {
     <h2 class="title">Usage</h2>
     <div class="snippet" highlight>
         <pre><code class="html">&lt;ng-amap map-options="{expression}"&gt;
-    &lt;marker options="{expression}" click="{expression}"&gt;&lt;marker&gt;    
+    &lt;marker options="{expression}" click="{expression}" loaded="{expression}"&gt;&lt;marker&gt;    
 &lt;/ng-amap&gt;</code></pre>
     </div>
     <h2 class="title">Attributes</h2>
@@ -39,15 +39,20 @@ export default {
                 <td><span class="label">expression</span></td>
                 <td>Expression to evaluate upon marker click event. (Three objects passed to this callback, <code>e</code> for <a href="http://lbs.amap.com/api/javascript-api/reference/event/#MapsEvent" target="_blank">event</a>, <code>marker</code> for instance of <a href="http://lbs.amap.com/api/javascript-api/reference/overlay/#Marker" target="_blank">AMap.Marker</a>, <code>map</code> for instance of <a href="http://lbs.amap.com/api/javascript-api/reference/map/" target="_blank">AMap.Map</a>)</td>
             </tr>
+            <tr>
+                <td>loaded</td>
+                <td><span class="label">expression</span></td>
+                <td>Expression to evaluate upon Marker instance loaded event. (Event object is available as <a href="http://lbs.amap.com/api/javascript-api/reference/overlay/#Marker" target="_blank">Marker</a> instance)</td>
+            </tr>
         </tbody>
     </table>
     <h2 class="title">Example</h2>
     <ng-amap map-options="$ctrl.opts">
-        <marker options="$ctrl.markerOpts" click="$ctrl.showWindow(e, marker, map)"></marker>
+        <marker options="$ctrl.markerOpts" click="$ctrl.showWindow(e, marker, map)" loaded="$ctrl.markerLoaded(marker)"></marker>
     </ng-amap>
     <div class="snippet" highlight>
         <pre><code class="html">&lt;ng-amap map-options="opts"&gt;
-    &lt;marker options="markerOpts" click="showWindow(e, marker, map)"&gt;&lt;/marker&gt;
+    &lt;marker options="markerOpts" click="showWindow(e, marker, map)" loaded="markerLoaded(marker)"&gt;&lt;/marker&gt;
 &lt;/ng-amap&gt;</code></pre>
     </div>
     <br/>
@@ -82,6 +87,10 @@ export default {
             })
             .open(map, marker.getPosition());
         };
+
+        $scope.markerLoaded = function (marker) {
+            console.log('Marker get loaded : ', marker);
+        };
     }
 ]);</code></pre>
     </div>
@@ -115,6 +124,10 @@ export default {
                 offset: new AMap.Pixel(20, -20)
             })
                 .open(map, marker.getPosition());
+        }
+
+        markerLoaded(marker) {
+            console.log('Marker gets loaded : ', marker);
         }
     }
 };

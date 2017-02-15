@@ -257,6 +257,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     transclude: true,
     template: '\n        <div ng-style="$ctrl.style.map" class="amap-instance"></div>\n        <div ng-style="$ctrl.style.offline" class="amap-offline">\n            <label ng-style="$ctrl.style.offlineLabel">{{ $ctrl.offlineTxt || \'NO_NETWORK\' }}</label>\n        </div>\n        <div ng-transclude style="display: none"></div>\n    ',
     controller: function () {
+        controller.$inject = ['$scope', '$element', '$attrs', 'mapScriptService'];
+
         /* @ngInject */
         function controller($scope, $element, $attrs, mapScriptService) {
             _classCallCheck(this, controller);
@@ -339,6 +341,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /* harmony default export */ __webpack_exports__["a"] = {
     bindings: {
         options: '<',
+        loaded: '&',
         click: '&'
     },
     require: {
@@ -346,6 +349,8 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
     },
     template: '',
     controller: function () {
+        controller.$inject = ['$scope', '$attrs'];
+
         /* @ngInject */
         function controller($scope, $attrs) {
             _classCallCheck(this, controller);
@@ -365,6 +370,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 this.mapCtrl.mapReady.then(function () {
                     var marker = _this.marker = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helper_transformer__["b" /* marker */])(_this.options, 'options');
                     marker.setMap(_this.mapCtrl.getMap());
+                    _this.loaded({
+                        marker: marker
+                    });
+                    _this.$scope.$apply();
                     return marker;
                 }).then(function (marker) {
                     if (!_this.$attrs.click) {
@@ -410,16 +419,21 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 /* harmony default export */ __webpack_exports__["a"] = {
     bindings: {
         name: '@',
-        options: '<'
+        options: '<',
+        loaded: '&'
     },
     require: {
         mapCtrl: '^ngAmap'
     },
     template: '',
     controller: function () {
+        controller.$inject = ['$scope'];
+
         /* @ngInject */
-        function controller() {
+        function controller($scope) {
             _classCallCheck(this, controller);
+
+            this.$scope = $scope;
         }
 
         _createClass(controller, [{
@@ -433,6 +447,10 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                     return createControl(_this.mapCtrl.getMap(), _this.name, transformOptions(_this.mapCtrl.getMap(), _this.options || {}));
                 }).then(function (control) {
                     _this.control = control;
+                    _this.loaded({
+                        plugin: control
+                    });
+                    _this.$scope.$apply();
                     _this.mapCtrl.getMap().addControl(control);
                 });
             }
@@ -484,7 +502,7 @@ function transformOptions(map, options) {
         MAP_URL = '//webapi.amap.com/maps?v=1.3&key=' + val + '&callback=amapinit';
     };
 
-    this.$get = function ($rootScope) {
+    this.$get = ['$rootScope', function ($rootScope) {
         'ngInject';
 
         return {
@@ -504,7 +522,7 @@ function transformOptions(map, options) {
                 }).then(displayMap);
             }
         };
-    };
+    }];
 };
 
 function appendScriptTag(url) {
