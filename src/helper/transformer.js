@@ -71,7 +71,7 @@ export function icon(obj, field) {
 }
 
 export function marker(obj, field) {
-    const opts = JSON.parse(JSON.stringify(obj));
+    const opts = obj;
     if (opts.position) {
         opts.position = lngLat(opts.position, field + '.position');
     }
