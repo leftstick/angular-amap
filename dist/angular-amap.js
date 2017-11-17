@@ -11,41 +11,41 @@
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
-
+/******/
 /******/ 	// The require function
 /******/ 	function __webpack_require__(moduleId) {
-
+/******/
 /******/ 		// Check if module is in cache
-/******/ 		if(installedModules[moduleId])
+/******/ 		if(installedModules[moduleId]) {
 /******/ 			return installedModules[moduleId].exports;
-
+/******/ 		}
 /******/ 		// Create a new module (and put it into the cache)
 /******/ 		var module = installedModules[moduleId] = {
 /******/ 			i: moduleId,
 /******/ 			l: false,
 /******/ 			exports: {}
 /******/ 		};
-
+/******/
 /******/ 		// Execute the module function
 /******/ 		modules[moduleId].call(module.exports, module, module.exports, __webpack_require__);
-
+/******/
 /******/ 		// Flag the module as loaded
 /******/ 		module.l = true;
-
+/******/
 /******/ 		// Return the exports of the module
 /******/ 		return module.exports;
 /******/ 	}
-
-
+/******/
+/******/
 /******/ 	// expose the modules object (__webpack_modules__)
 /******/ 	__webpack_require__.m = modules;
-
+/******/
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
-
+/******/
 /******/ 	// identity function for calling harmony imports with the correct context
 /******/ 	__webpack_require__.i = function(value) { return value; };
-
+/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -56,7 +56,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 			});
 /******/ 		}
 /******/ 	};
-
+/******/
 /******/ 	// getDefaultExport function for compatibility with non-harmony modules
 /******/ 	__webpack_require__.n = function(module) {
 /******/ 		var getter = module && module.__esModule ?
@@ -65,15 +65,15 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 		__webpack_require__.d(getter, 'a', getter);
 /******/ 		return getter;
 /******/ 	};
-
+/******/
 /******/ 	// Object.prototype.hasOwnProperty.call
 /******/ 	__webpack_require__.o = function(object, property) { return Object.prototype.hasOwnProperty.call(object, property); };
-
+/******/
 /******/ 	// __webpack_public_path__
 /******/ 	__webpack_require__.p = "";
-
+/******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 9);
+/******/ 	return __webpack_require__(__webpack_require__.s = 8);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -129,7 +129,6 @@ function controlTypeCheck(type) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__validate__ = __webpack_require__(0);
 /* harmony export (immutable) */ __webpack_exports__["c"] = lngLat;
 /* harmony export (immutable) */ __webpack_exports__["d"] = view2D;
 /* harmony export (immutable) */ __webpack_exports__["a"] = pixel;
@@ -137,6 +136,7 @@ function controlTypeCheck(type) {
 /* unused harmony export icon */
 /* harmony export (immutable) */ __webpack_exports__["b"] = marker;
 /* harmony export (immutable) */ __webpack_exports__["e"] = tileLayer;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__validate__ = __webpack_require__(0);
 
 
 function lngLat(obj, field) {
@@ -210,7 +210,7 @@ function icon(obj, field) {
 }
 
 function marker(obj, field) {
-    var opts = JSON.parse(JSON.stringify(obj));
+    var opts = obj;
     if (opts.position) {
         opts.position = lngLat(opts.position, field + '.position');
     }
@@ -236,7 +236,7 @@ function tileLayer(obj, field) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style__ = __webpack_require__(9);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helper_validate__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helper_map__ = __webpack_require__(7);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
@@ -247,7 +247,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = {
+/* harmony default export */ __webpack_exports__["a"] = ({
     bindings: {
         offlineTxt: '<',
         mapOptions: '<',
@@ -322,7 +322,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         return controller;
     }()
-};
+});
 
 /***/ }),
 /* 3 */
@@ -338,7 +338,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = {
+/* harmony default export */ __webpack_exports__["a"] = ({
     bindings: {
         options: '<',
         loaded: '&',
@@ -400,7 +400,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         return controller;
     }()
-};
+});
 
 /***/ }),
 /* 4 */
@@ -416,7 +416,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 
 
-/* harmony default export */ __webpack_exports__["a"] = {
+/* harmony default export */ __webpack_exports__["a"] = ({
     bindings: {
         name: '@',
         options: '<',
@@ -463,7 +463,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
         return controller;
     }()
-};
+});
 
 function createControl(map, name, options) {
     return new Promise(function (resolve, reject) {
@@ -493,7 +493,7 @@ function transformOptions(map, options) {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__helper_validate__ = __webpack_require__(0);
 
 
-/* harmony default export */ __webpack_exports__["a"] = function () {
+/* harmony default export */ __webpack_exports__["a"] = (function () {
     var ak = null,
         MAP_URL = void 0;
 
@@ -523,7 +523,7 @@ function transformOptions(map, options) {
             }
         };
     }];
-};
+});
 
 function appendScriptTag(url) {
     var script = document.createElement('script');
@@ -561,10 +561,10 @@ module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__validate__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__transformer__ = __webpack_require__(1);
 /* harmony export (immutable) */ __webpack_exports__["a"] = create;
 /* harmony export (immutable) */ __webpack_exports__["b"] = refresh;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__validate__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__transformer__ = __webpack_require__(1);
 
 
 
@@ -604,6 +604,32 @@ function transformOptions(options) {
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ngAMap", function() { return ngAMap; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(6);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_aMap__ = __webpack_require__(2);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_marker__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_plugin__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__provider_mapScript__ = __webpack_require__(5);
+
+
+
+
+
+
+
+var moduleName = 'angular-amap';
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module(moduleName, []).provider('mapScriptService', __WEBPACK_IMPORTED_MODULE_4__provider_mapScript__["a" /* default */]).component('ngAmap', __WEBPACK_IMPORTED_MODULE_1__components_aMap__["a" /* default */]).component('marker', __WEBPACK_IMPORTED_MODULE_2__components_marker__["a" /* default */]).component('plugin', __WEBPACK_IMPORTED_MODULE_3__components_plugin__["a" /* default */]);
+
+var ngAMap = moduleName;
+
+/***/ }),
+/* 9 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "map", function() { return map; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "offline", function() { return offline; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "offlineLabel", function() { return offlineLabel; });
@@ -630,32 +656,6 @@ var offlineLabel = {
     'margin-right': '-50%',
     transform: 'translate(-50%, -50%)'
 };
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_aMap__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_marker__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_plugin__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__provider_mapScript__ = __webpack_require__(5);
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ngAMap", function() { return ngAMap; });
-
-
-
-
-
-
-
-var moduleName = 'angular-amap';
-
-__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module(moduleName, []).provider('mapScriptService', __WEBPACK_IMPORTED_MODULE_4__provider_mapScript__["a" /* default */]).component('ngAmap', __WEBPACK_IMPORTED_MODULE_1__components_aMap__["a" /* default */]).component('marker', __WEBPACK_IMPORTED_MODULE_2__components_marker__["a" /* default */]).component('plugin', __WEBPACK_IMPORTED_MODULE_3__components_plugin__["a" /* default */]);
-
-var ngAMap = moduleName;
 
 /***/ })
 /******/ ]);
