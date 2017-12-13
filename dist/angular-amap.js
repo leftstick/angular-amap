@@ -7,7 +7,7 @@
 		var a = typeof exports === 'object' ? factory(require("angular")) : factory(root["angular"]);
 		for(var i in a) (typeof exports === 'object' ? exports : root)[i] = a[i];
 	}
-})(this, function(__WEBPACK_EXTERNAL_MODULE_6__) {
+})(typeof self !== 'undefined' ? self : this, function(__WEBPACK_EXTERNAL_MODULE_3__) {
 return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
@@ -43,9 +43,6 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// expose the module cache
 /******/ 	__webpack_require__.c = installedModules;
 /******/
-/******/ 	// identity function for calling harmony imports with the correct context
-/******/ 	__webpack_require__.i = function(value) { return value; };
-/******/
 /******/ 	// define getter function for harmony exports
 /******/ 	__webpack_require__.d = function(exports, name, getter) {
 /******/ 		if(!__webpack_require__.o(exports, name)) {
@@ -73,7 +70,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /******/ 	__webpack_require__.p = "";
 /******/
 /******/ 	// Load entry module and return exports
-/******/ 	return __webpack_require__(__webpack_require__.s = 8);
+/******/ 	return __webpack_require__(__webpack_require__.s = 2);
 /******/ })
 /************************************************************************/
 /******/ ([
@@ -83,10 +80,10 @@ return /******/ (function(modules) { // webpackBootstrap
 "use strict";
 /* harmony export (immutable) */ __webpack_exports__["e"] = nullCheck;
 /* unused harmony export numberCheck */
-/* harmony export (immutable) */ __webpack_exports__["a"] = isNull;
+/* harmony export (immutable) */ __webpack_exports__["b"] = isNull;
 /* harmony export (immutable) */ __webpack_exports__["d"] = isString;
 /* harmony export (immutable) */ __webpack_exports__["c"] = isNumber;
-/* harmony export (immutable) */ __webpack_exports__["b"] = isArray;
+/* harmony export (immutable) */ __webpack_exports__["a"] = isArray;
 /* unused harmony export controlTypeCheck */
 
 function nullCheck(val, msg) {
@@ -129,26 +126,26 @@ function controlTypeCheck(type) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (immutable) */ __webpack_exports__["c"] = lngLat;
-/* harmony export (immutable) */ __webpack_exports__["d"] = view2D;
-/* harmony export (immutable) */ __webpack_exports__["a"] = pixel;
+/* harmony export (immutable) */ __webpack_exports__["a"] = lngLat;
+/* harmony export (immutable) */ __webpack_exports__["e"] = view2D;
+/* harmony export (immutable) */ __webpack_exports__["c"] = pixel;
 /* unused harmony export size */
 /* unused harmony export icon */
 /* harmony export (immutable) */ __webpack_exports__["b"] = marker;
-/* harmony export (immutable) */ __webpack_exports__["e"] = tileLayer;
+/* harmony export (immutable) */ __webpack_exports__["d"] = tileLayer;
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__validate__ = __webpack_require__(0);
 
 
 function lngLat(obj, field) {
     var msg = 'passed ' + field + ' is not correct';
-    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["b" /* isArray */])(obj)) {
+    if (Object(__WEBPACK_IMPORTED_MODULE_0__validate__["a" /* isArray */])(obj)) {
         if (obj.length !== 2) {
             throw new Error(msg);
         }
         return new AMap.LngLat(obj[0], obj[1]);
     }
 
-    if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(obj.lng) && !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(obj.lat)) {
+    if (!Object(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(obj.lng) && !Object(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(obj.lat)) {
         throw new Error(msg);
     }
     return new AMap.LngLat(obj.lng, obj.lat);
@@ -158,7 +155,7 @@ function view2D(obj, field) {
     var msg = 'passed ' + field + ' is not correct';
 
     var opts = JSON.parse(JSON.stringify(obj));
-    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["a" /* isNull */])(opts.center)) {
+    if (Object(__WEBPACK_IMPORTED_MODULE_0__validate__["b" /* isNull */])(opts.center)) {
         throw new Error(msg + ', center property is missed');
     }
     opts.center = lngLat(obj.center, field + '.center');
@@ -168,10 +165,10 @@ function view2D(obj, field) {
 function pixel(obj, field) {
     var msg = 'passed ' + field + ' is not correct';
 
-    if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(obj.x)) {
+    if (!Object(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(obj.x)) {
         throw new Error(msg + ', x property is not a number');
     }
-    if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(obj.y)) {
+    if (!Object(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(obj.y)) {
         throw new Error(msg + ', y property is not a number');
     }
     return new AMap.Pixel(obj.x, obj.y);
@@ -180,10 +177,10 @@ function pixel(obj, field) {
 function size(obj, field) {
     var msg = 'passed ' + field + ' is not correct';
 
-    if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(obj.width)) {
+    if (!Object(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(obj.width)) {
         throw new Error(msg + ', width property is not a number');
     }
-    if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(obj.height)) {
+    if (!Object(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(obj.height)) {
         throw new Error(msg + ', height property is not a number');
     }
     return new AMap.Size(obj.width, obj.height);
@@ -191,7 +188,7 @@ function size(obj, field) {
 
 function icon(obj, field) {
     var msg = 'passed ' + field + ' is not correct';
-    if (__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["d" /* isString */])(obj)) {
+    if (Object(__WEBPACK_IMPORTED_MODULE_0__validate__["d" /* isString */])(obj)) {
         return AMap.Icon({
             image: obj
         });
@@ -236,9 +233,41 @@ function tileLayer(obj, field) {
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style__ = __webpack_require__(9);
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ngAMap", function() { return ngAMap; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(3);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_aMap__ = __webpack_require__(4);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_marker__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_plugin__ = __webpack_require__(8);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__provider_mapScript__ = __webpack_require__(9);
+
+
+
+
+
+
+
+var moduleName = 'angular-amap';
+
+__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module(moduleName, []).provider('mapScriptService', __WEBPACK_IMPORTED_MODULE_4__provider_mapScript__["a" /* default */]).component('ngAmap', __WEBPACK_IMPORTED_MODULE_1__components_aMap__["a" /* default */]).component('marker', __WEBPACK_IMPORTED_MODULE_2__components_marker__["a" /* default */]).component('plugin', __WEBPACK_IMPORTED_MODULE_3__components_plugin__["a" /* default */]);
+
+var ngAMap = moduleName;
+
+/***/ }),
+/* 3 */
+/***/ (function(module, exports) {
+
+module.exports = __WEBPACK_EXTERNAL_MODULE_3__;
+
+/***/ }),
+/* 4 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__style__ = __webpack_require__(5);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__helper_validate__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helper_map__ = __webpack_require__(7);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__helper_map__ = __webpack_require__(6);
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -275,11 +304,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function $onInit() {
                 var _this = this;
 
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helper_validate__["e" /* nullCheck */])(this.mapOptions, 'mapOptions is required for <ng-amap>');
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helper_validate__["e" /* nullCheck */])(this.mapOptions.center, 'mapOptions.center is required for <ng-amap>');
+                Object(__WEBPACK_IMPORTED_MODULE_1__helper_validate__["e" /* nullCheck */])(this.mapOptions, 'mapOptions is required for <ng-amap>');
+                Object(__WEBPACK_IMPORTED_MODULE_1__helper_validate__["e" /* nullCheck */])(this.mapOptions.center, 'mapOptions.center is required for <ng-amap>');
 
                 this.mapReady = this.mapScriptService.load().then(function () {
-                    return __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__helper_map__["a" /* create */])(_this.$element.children()[0], _this.mapOptions);
+                    return Object(__WEBPACK_IMPORTED_MODULE_2__helper_map__["a" /* create */])(_this.$element.children()[0], _this.mapOptions);
                 }).then(function (map) {
                     _this.loaded({
                         map: map
@@ -305,7 +334,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                 if (!this.map) {
                     return;
                 }
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_2__helper_map__["b" /* refresh */])(this.map, changes.mapOptions.currentValue);
+                Object(__WEBPACK_IMPORTED_MODULE_2__helper_map__["b" /* refresh */])(this.map, changes.mapOptions.currentValue);
             }
         }, {
             key: '$onDestroy',
@@ -325,7 +354,82 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 });
 
 /***/ }),
-/* 3 */
+/* 5 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "map", function() { return map; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "offline", function() { return offline; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "offlineLabel", function() { return offlineLabel; });
+var map = {
+    width: '100%',
+    height: '100%',
+    display: 'none'
+};
+
+var offline = {
+    width: '100%',
+    height: '100%',
+    backgroundColor: '#E6E6E6',
+    position: 'relative',
+    display: 'none'
+};
+
+var offlineLabel = {
+    fontSize: '30px',
+    margin: 0,
+    position: 'absolute',
+    top: '50%',
+    left: '50%',
+    'margin-right': '-50%',
+    transform: 'translate(-50%, -50%)'
+};
+
+/***/ }),
+/* 6 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (immutable) */ __webpack_exports__["a"] = create;
+/* harmony export (immutable) */ __webpack_exports__["b"] = refresh;
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__validate__ = __webpack_require__(0);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__transformer__ = __webpack_require__(1);
+
+
+
+function create(element, mapOptions) {
+    return new AMap.Map(element, transformOptions(mapOptions));
+}
+
+function refresh(map, mapOptions) {
+    var opts = transformOptions(mapOptions);
+
+    map.setCenter(opts.center);
+
+    Object(__WEBPACK_IMPORTED_MODULE_0__validate__["a" /* isArray */])(opts.layers) && map.setLayers(opts.layers);
+    Object(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(opts.zoom) && map.setZoom(opts.zoom);
+    Object(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(opts.labelzIndex) && map.setlabelzIndex(opts.labelzIndex);
+    Object(__WEBPACK_IMPORTED_MODULE_0__validate__["d" /* isString */])(opts.lang) && map.setLang(opts.lang);
+    Object(__WEBPACK_IMPORTED_MODULE_0__validate__["d" /* isString */])(opts.cursor) && map.setDefaultCursor(opts.cursor);
+    !Object(__WEBPACK_IMPORTED_MODULE_0__validate__["b" /* isNull */])(opts.defaultLayer) && map.setDefaultLayer(opts.defaultLayer);
+    !Object(__WEBPACK_IMPORTED_MODULE_0__validate__["b" /* isNull */])(opts.city) && map.setCity(opts.city);
+}
+
+function transformOptions(options) {
+    var opts = JSON.parse(JSON.stringify(options));
+    opts.center = Object(__WEBPACK_IMPORTED_MODULE_1__transformer__["a" /* lngLat */])(opts.center, 'mapOptions.center');
+    if (!Object(__WEBPACK_IMPORTED_MODULE_0__validate__["b" /* isNull */])(opts.view)) {
+        opts.view = Object(__WEBPACK_IMPORTED_MODULE_1__transformer__["e" /* view2D */])(opts.view, 'mapOptions.view');
+    }
+    if (!Object(__WEBPACK_IMPORTED_MODULE_0__validate__["b" /* isNull */])(opts.defaultLayer)) {
+        opts.defaultLayer = Object(__WEBPACK_IMPORTED_MODULE_1__transformer__["d" /* tileLayer */])(opts.defaultLayer, 'mapOptions.defaultLayer');
+    }
+    return opts;
+}
+
+/***/ }),
+/* 7 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -364,11 +468,11 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function $onInit() {
                 var _this = this;
 
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helper_validate__["e" /* nullCheck */])(this.options, 'options is required for <marker>');
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helper_validate__["e" /* nullCheck */])(this.options.position, 'options.position is required for <marker>');
+                Object(__WEBPACK_IMPORTED_MODULE_0__helper_validate__["e" /* nullCheck */])(this.options, 'options is required for <marker>');
+                Object(__WEBPACK_IMPORTED_MODULE_0__helper_validate__["e" /* nullCheck */])(this.options.position, 'options.position is required for <marker>');
 
                 this.mapCtrl.mapReady.then(function () {
-                    var marker = _this.marker = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helper_transformer__["b" /* marker */])(_this.options, 'options');
+                    var marker = _this.marker = Object(__WEBPACK_IMPORTED_MODULE_1__helper_transformer__["b" /* marker */])(_this.options, 'options');
                     marker.setMap(_this.mapCtrl.getMap());
                     _this.loaded({
                         marker: marker
@@ -403,7 +507,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 });
 
 /***/ }),
-/* 4 */
+/* 8 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -441,7 +545,7 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
             value: function $onInit() {
                 var _this = this;
 
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helper_validate__["a" /* isNull */])(this.name);
+                Object(__WEBPACK_IMPORTED_MODULE_0__helper_validate__["b" /* isNull */])(this.name);
 
                 this.mapCtrl.mapReady.then(function () {
                     return createControl(_this.mapCtrl.getMap(), _this.name, transformOptions(_this.mapCtrl.getMap(), _this.options || {}));
@@ -451,7 +555,9 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
                         plugin: control
                     });
                     _this.$scope.$apply();
-                    _this.mapCtrl.getMap().addControl(control);
+                    if (control) {
+                        _this.mapCtrl.getMap().addControl(control);
+                    }
                 });
             }
         }, {
@@ -467,7 +573,15 @@ function _classCallCheck(instance, Constructor) { if (!(instance instanceof Cons
 
 function createControl(map, name, options) {
     return new Promise(function (resolve, reject) {
-        return map.plugin(['AMap.' + name], function () {
+        return AMap.plugin(['AMap.' + name], function () {
+            if (name === 'MarkerClusterer') {
+                if (!Object(__WEBPACK_IMPORTED_MODULE_0__helper_validate__["a" /* isArray */])(options) || !options.length) {
+                    return reject(new Error('[options] for MarkerClusterer should not be empty, it must be an Array of marker'));
+                }
+                return resolve(new AMap[name](map, options.map(function (o) {
+                    return Object(__WEBPACK_IMPORTED_MODULE_1__helper_transformer__["b" /* marker */])(o, 'option for MarkerClusterer');
+                })));
+            }
             resolve(new AMap[name](options));
         });
     });
@@ -476,17 +590,17 @@ function createControl(map, name, options) {
 function transformOptions(map, options) {
     var opts = JSON.parse(JSON.stringify(options));
     if (opts.offset) {
-        opts.offset = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helper_transformer__["a" /* pixel */])(opts.offset, 'options.offset');
+        opts.offset = Object(__WEBPACK_IMPORTED_MODULE_1__helper_transformer__["c" /* pixel */])(opts.offset, 'options.offset');
     }
     if (opts.locationMarker) {
-        opts.locationMarker = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__helper_transformer__["b" /* marker */])(opts.locationMarker, 'options.locationMarker');
+        opts.locationMarker = Object(__WEBPACK_IMPORTED_MODULE_1__helper_transformer__["b" /* marker */])(opts.locationMarker, 'options.locationMarker');
         opts.locationMarker.setMap(map);
     }
     return opts;
 }
 
 /***/ }),
-/* 5 */
+/* 9 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -499,7 +613,7 @@ function transformOptions(map, options) {
 
     this.setKey = function (val) {
         ak = val;
-        MAP_URL = '//webapi.amap.com/maps?v=1.3&key=' + val + '&callback=amapinit';
+        MAP_URL = '//webapi.amap.com/maps?v=1.4.2&key=' + val + '&callback=amapinit';
     };
 
     this.$get = ['$rootScope', function ($rootScope) {
@@ -508,7 +622,7 @@ function transformOptions(map, options) {
         return {
             load: function load() {
 
-                __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__helper_validate__["e" /* nullCheck */])(ak, 'ak should be set before use. Read: https://leftstick.github.io/angular-amap/#!/quickstart');
+                Object(__WEBPACK_IMPORTED_MODULE_0__helper_validate__["e" /* nullCheck */])(ak, 'ak should be set before use. Read: https://leftstick.github.io/angular-amap/#!/quickstart');
 
                 var loadAMapPromise = $rootScope.loadAMapPromise;
                 if (loadAMapPromise) {
@@ -549,113 +663,6 @@ function displayMap() {
         node.querySelector('.amap-instance').style.display = 'block';
     });
 }
-
-/***/ }),
-/* 6 */
-/***/ (function(module, exports) {
-
-module.exports = __WEBPACK_EXTERNAL_MODULE_6__;
-
-/***/ }),
-/* 7 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = create;
-/* harmony export (immutable) */ __webpack_exports__["b"] = refresh;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__validate__ = __webpack_require__(0);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__transformer__ = __webpack_require__(1);
-
-
-
-function create(element, mapOptions) {
-    return new AMap.Map(element, transformOptions(mapOptions));
-}
-
-function refresh(map, mapOptions) {
-    var opts = transformOptions(mapOptions);
-
-    map.setCenter(opts.center);
-
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["b" /* isArray */])(opts.layers) && map.setLayers(opts.layers);
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(opts.zoom) && map.setZoom(opts.zoom);
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["c" /* isNumber */])(opts.labelzIndex) && map.setlabelzIndex(opts.labelzIndex);
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["d" /* isString */])(opts.lang) && map.setLang(opts.lang);
-    __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["d" /* isString */])(opts.cursor) && map.setDefaultCursor(opts.cursor);
-    !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["a" /* isNull */])(opts.defaultLayer) && map.setDefaultLayer(opts.defaultLayer);
-    !__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["a" /* isNull */])(opts.city) && map.setCity(opts.city);
-}
-
-function transformOptions(options) {
-    var opts = JSON.parse(JSON.stringify(options));
-    opts.center = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__transformer__["c" /* lngLat */])(opts.center, 'mapOptions.center');
-    if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["a" /* isNull */])(opts.view)) {
-        opts.view = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__transformer__["d" /* view2D */])(opts.view, 'mapOptions.view');
-    }
-    if (!__webpack_require__.i(__WEBPACK_IMPORTED_MODULE_0__validate__["a" /* isNull */])(opts.defaultLayer)) {
-        opts.defaultLayer = __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_1__transformer__["e" /* tileLayer */])(opts.defaultLayer, 'mapOptions.defaultLayer');
-    }
-    return opts;
-}
-
-/***/ }),
-/* 8 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "ngAMap", function() { return ngAMap; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular__ = __webpack_require__(6);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angular___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_angular__);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__components_aMap__ = __webpack_require__(2);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__components_marker__ = __webpack_require__(3);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__components_plugin__ = __webpack_require__(4);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__provider_mapScript__ = __webpack_require__(5);
-
-
-
-
-
-
-
-var moduleName = 'angular-amap';
-
-__WEBPACK_IMPORTED_MODULE_0_angular___default.a.module(moduleName, []).provider('mapScriptService', __WEBPACK_IMPORTED_MODULE_4__provider_mapScript__["a" /* default */]).component('ngAmap', __WEBPACK_IMPORTED_MODULE_1__components_aMap__["a" /* default */]).component('marker', __WEBPACK_IMPORTED_MODULE_2__components_marker__["a" /* default */]).component('plugin', __WEBPACK_IMPORTED_MODULE_3__components_plugin__["a" /* default */]);
-
-var ngAMap = moduleName;
-
-/***/ }),
-/* 9 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "map", function() { return map; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "offline", function() { return offline; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "offlineLabel", function() { return offlineLabel; });
-var map = {
-    width: '100%',
-    height: '100%',
-    display: 'none'
-};
-
-var offline = {
-    width: '100%',
-    height: '100%',
-    backgroundColor: '#E6E6E6',
-    position: 'relative',
-    display: 'none'
-};
-
-var offlineLabel = {
-    fontSize: '30px',
-    margin: 0,
-    position: 'absolute',
-    top: '50%',
-    left: '50%',
-    'margin-right': '-50%',
-    transform: 'translate(-50%, -50%)'
-};
 
 /***/ })
 /******/ ]);
