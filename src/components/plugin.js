@@ -1,4 +1,4 @@
-import {isNull} from '../helper/validate';
+import {isNull, isArray} from '../helper/validate';
 import {marker, pixel} from '../helper/transformer';
 
 export default {
@@ -29,7 +29,9 @@ export default {
                         plugin: control
                     });
                     this.$scope.$apply();
-                    this.mapCtrl.getMap().addControl(control);
+                    if (control) {
+                        this.mapCtrl.getMap().addControl(control);
+                    }
                 });
         }
 
@@ -41,7 +43,13 @@ export default {
 
 function createControl(map, name, options) {
     return new Promise((resolve, reject) => {
-        return map.plugin(['AMap.' + name], () => {
+        return AMap.plugin(['AMap.' + name], () => {
+            if (name === 'MarkerClusterer') {
+                if (!isArray(options) || !options.length) {
+                    return reject(new Error('[options] for MarkerClusterer should not be empty, it must be an Array of marker'));
+                }
+                return resolve(new AMap[name](map, options.map(o => marker(o, 'option for MarkerClusterer'))));
+            }
             resolve(new AMap[name](options));
         });
     });

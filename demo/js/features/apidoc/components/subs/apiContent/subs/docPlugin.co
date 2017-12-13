@@ -1,7 +1,9 @@
+import points from './points';
+
 export default {
     template: `
     <p>
-        The <code>plugin</code> component is sub-component of <code>ng-amap</code>. It is used to add <code>地图插件</code> to the map. For example: <a href="http://lbs.amap.com/api/javascript-api/reference/map-control/" target="_blank">控件</a>, <a href="http://lbs.amap.com/api/javascript-api/reference/location/" target="_blank">定位</a>
+        The <code>plugin</code> component is sub-component of <code>ng-amap</code>. It is used to add <code>地图插件</code> to the map. For example: <a href="http://lbs.amap.com/api/javascript-api/reference/map-control/" target="_blank">控件</a>, <a href="http://lbs.amap.com/api/javascript-api/reference/location/" target="_blank">定位</a>, <a href="http://lbs.amap.com/api/javascript-api/reference/plugin#AMap.MarkerClusterer" target="_blank">MarkerClusterer</a>
     </p>
     <h2 class="title">Usage</h2>
     <div class="snippet" highlight>
@@ -44,12 +46,14 @@ export default {
         <plugin name="MapType" options="$ctrl.mapTypeOpts"></plugin>
         <plugin name="OverView" options="$ctrl.overOpts"></plugin>
         <plugin name="Geolocation" options="$ctrl.geoOpts" loaded="$ctrl.geoPluginLoaded(plugin)"></plugin>
+        <plugin name="MarkerClusterer" options="$ctrl.clusterMarkers"></plugin>
     </ng-amap>
     <div class="snippet" highlight>
         <pre><code class="html">&lt;ng-amap map-options="opts"&gt;
     &lt;plugin name="MapType" options="mapTypeOpts"&gt;&lt;/plugin&gt;
     &lt;plugin name="OverView" options="overOpts"&gt;&lt;/plugin&gt;
     &lt;plugin name="Geolocation" options="geoOpts" loaded="geoPluginLoaded(plugin)"&gt;&lt;/plugin&gt;
+    &lt;plugin name="MarkerClusterer" options="clusterMarkers"&gt;&lt;/plugin&gt;
 &lt;/ng-amap&gt;</code></pre>
     </div>
     <br/>
@@ -78,6 +82,13 @@ export default {
                 console.log('current location is :', result);
             });
         };
+
+        //construct clusterMarkers from http://a.amap.com/jsapi_demos/static/china.js
+        $scope.clusterMarkers = points.map(p => {
+            return {
+                position: p.lnglat
+            };
+        });
     }
 ]);</code></pre>
     </div>
@@ -86,8 +97,9 @@ export default {
         /* @ngInject */
         constructor() {
             this.opts = {
-                center: [121.499981, 31.239226],
-                zoom: 16
+                resizeEnable: true,
+                center: [105, 34],
+                zoom: 4
             };
             this.mapTypeOpts = {
                 defaultType: 0
@@ -98,6 +110,13 @@ export default {
             this.geoOpts = {
                 buttonPosition: 'LB'
             };
+
+            this.clusterMarkers = points.map(p => {
+                return {
+                    position: p.lnglat
+                };
+            });
+
         }
 
         geoPluginLoaded(plugin) {

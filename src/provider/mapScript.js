@@ -6,7 +6,7 @@ export default function() {
 
     this.setKey = function(val) {
         ak = val;
-        MAP_URL = `//webapi.amap.com/maps?v=1.3&key=${val}&callback=amapinit`;
+        MAP_URL = `//webapi.amap.com/maps?v=1.4.2&key=${val}&callback=amapinit`;
     };
 
     this.$get = function($rootScope) {
